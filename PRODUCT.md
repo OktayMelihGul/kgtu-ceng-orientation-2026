@@ -133,7 +133,7 @@ Aşağıdakiler yüklenen belgelerden **doğrudan** çıkarıldı. Aşama 2'de t
 ### Müfredat (MMFcomputer_engineering_curriculum.xlsx)
 
 - Toplam **240 AKTS** / 8 yarıyıl, her yarıyıl 30 AKTS
-- Zorunlu **183 AKTS (%76)** · Seçmeli **57 AKTS (%24)**
+- Zorunlu **176 AKTS** · Seçmeli **64 AKTS** (sosyal seçmeliler dâhil; xlsx'teki 183/57 değerleri bölüm tarafından düzeltildi)
 - 1. yarıyıl (30 AKTS): COMP 1001 Introduction to Programming (4) · COMP 1003 Introduction to Computer Engineering Concepts (2) · COMP 1005 Ethics in Computer Science (3) · FLED 1001 Advanced English (4) · UNIV 1005 Calculus I (6) · UNIV 1015 Türk Dili ve Edebiyatı I (2) · UNIV 1017 İş Sağlığı ve Güvenliği (3) · UNIV 1019 Physics I (6)
 - 2. yarıyıl (30 AKTS): COMP 1002 Advanced Python (6) · FLED 1002 Academic English (4) · UNIV 1006 Calculus II (6) · UNIV 1016 Türk Dili ve Edebiyatı II (2) · UNIV 1020 Physics II (6) · UNIV 1024 Kariyer Planlama (2) · UNIV 2014 Linear Algebra (4)
 - Seçmeli havuzu: ~60 ders (Güz + Bahar), her biri 5 AKTS
@@ -189,11 +189,9 @@ Aşağıdakiler yüklenen belgelerden **doğrudan** çıkarıldı. Aşama 2'de t
 
 ### Hâlâ açık — yayından önce doldurulmalı
 
-1. **Arş. Gör. Oktay Melih Gül'ün kurumsal e-postası** — `index.html` içinde
-   `EPOSTA_DOLDURULACAK@gidatarim.edu.tr` placeholder'ı duruyor.
-2. **Apps Script Web App URL'i** — `index.html` içinde `FEEDBACK_ENDPOINT` placeholder'ı duruyor.
+1. **Apps Script Web App URL'i** — `index.html` içinde `FEEDBACK_ENDPOINT` placeholder'ı duruyor.
    Kurulum adımları `README.md`'de.
-3. **Bölüm başkanı onayı** — içerik yayın öncesi son kez teyit edilmeli.
+2. **Bölüm başkanı onayı** — içerik yayın öncesi son kez teyit edilmeli.
 
 ## 9. Teslim edilecekler
 

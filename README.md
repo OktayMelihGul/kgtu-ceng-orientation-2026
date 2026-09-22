@@ -13,7 +13,9 @@ QR kod ile paylaşılmak üzere hazırlanmış, TR/EN çift dilli, tek dosyalık
 |---|---|
 | `index.html` | Rehberin tamamı — HTML, CSS ve JS tek dosyada, harici bağımlılık yok. Logo base64 olarak gömülüdür. |
 | `apps-script/Code.gs` | Geri bildirim formunun arka ucu (Google Apps Script Web App). Repoda yayınlanmaz, kurulum içindir. |
-| `assets/logo.png` | Logonun yüksek çözünürlüklü kaynağı. Sayfa bunu kullanmaz; ileride yeniden üretmek gerekirse durur. |
+| `assets/logo_bl.png` · `assets/logo_wh.png` | Logonun açık ve koyu tema sürümlerinin yüksek çözünürlüklü kaynakları. Sayfa bunları kırpıp küçülterek base64 olarak gömer; dosyalar yeniden üretim için durur. |
+| `assets/favicon.pdf` | Favicon'un vektör kaynağı. Sayfaya gömülü 32px PNG ve `apple-touch-icon.png` bundan üretildi. |
+| `assets/apple-touch-icon.png` | iOS ana ekran simgesi (180×180). Sayfa buna dosya olarak bağlanır. |
 | `PRODUCT.md` | Tasarım brifi — hangi bilginin hangi yönetmelik maddesinden geldiği burada kayıtlı. |
 
 ## İçeriğin kaynakları
@@ -21,7 +23,8 @@ QR kod ile paylaşılmak üzere hazırlanmış, TR/EN çift dilli, tek dosyalık
 Sayfadaki her akademik kural bir kaynağa dayanır; hiçbiri varsayım değildir.
 
 - **KGTÜ Ön Lisans ve Lisans Eğitim-Öğretim Yönetmeliği** (RG 06.08.2023/32271) — sınavlar,
-  notlandırma, devam, ders yükü, mezuniyet. Sayfada ilgili madde numaraları görünür.
+  notlandırma, devam, ders yükü, mezuniyet. Madde numaraları sayfada gösterilmiyor; hangi
+  kuralın hangi maddeden geldiği `index.html` başındaki yorum bloğunda listeli.
 - **2026-2027 Lisans-Önlisans Genel Akademik Takvimi** — tüm tarihler.
 - **Bilgisayar Mühendisliği müfredat planı** — ders tabloları, AKTS dağılımı.
 - **Bölüm akademik personel sayfası** — kadro listesi.
@@ -115,9 +118,9 @@ Sonra <http://localhost:8765> adresini aç. `file://` ile de açılır ama o dur
 `index.html` başındaki yorum bloğunda da yazılı:
 
 1. **Akademik takvim** (`#takvim`) — tüm tarihler
-2. **Oryantasyon tarihi** (sayfa başındaki rozet) ve altbilgideki "Son güncelleme"
-3. **Akademik kadro** (`#kadro`) — bölüm personel sayfasından
-4. **Müfredat** (`#bolum`) — müfredat değiştiyse
+2. **Oryantasyon tarihi** — sayfa başındaki künye satırı
+3. **Akademik kadro** (`#program`) — bölüm personel sayfasından
+4. **Müfredat** (`#program`) — müfredat değiştiyse
 5. **Yemekhane ücretleri** (`#kampus`)
 6. **`FEEDBACK_ENDPOINT`** — yeni bir dağıtım yapıldıysa
 
@@ -125,5 +128,14 @@ Yönetmelik değişmedikçe **Akademik Sistem** ve **Mezuniyet** bölümleri sab
 
 ## Tarayıcı desteği
 
-Modern masaüstü ve mobil tarayıcılar. `localStorage` kapalıysa veya erişilemiyorsa sayfa
-yine çalışır — dil tarayıcı diline göre seçilir, form her açılışta yeniden gönderilebilir hâle gelir.
+Modern masaüstü ve mobil tarayıcılar. Telefon önce tasarlandı; 704px ve 1024px'te iki katman
+ekleniyor (haftalık ders saatleri sütunu, sabit sol dizin). JS çalışmazsa sayfa Türkçe olarak
+tam okunur kalır. `localStorage` kapalıysa dil tarayıcı diline göre seçilir ve form her açılışta
+yeniden gönderilebilir hâle gelir.
+
+## Logo ve favicon'u yeniden üretme
+
+`index.html` logoları ve favicon'u base64 olarak içinde taşır — QR'dan açıldığında tek istek
+yeterli olsun diye. Kaynak dosyaları değiştirirsen gömülü sürümleri de yenilemen gerekir:
+saydam kenarları kırp, ~620px genişliğe küçült, 96-128 renge indir, base64'e çevir ve
+`index.html` içindeki ilgili `data:image/png;base64,…` değerini değiştir.
