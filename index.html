@@ -33,8 +33,9 @@
   --altin:#C8A253; --altin-metin:#8A6A1E; --altin-soft:#F1D68E;
   --murekkep:#1D1D1E; --gri:#5C5C60; --cizgi:#E2DEDA;
   --zemin:#FFFFFF; --zemin-alt:#FAF7F4; --kart:#FFFFFF;
-  --vurgu-zemin:#FDF3F3; --uyari-zemin:#FFF8E8; --uyari-cizgi:#E8CE8A;
-  --golge:0 1px 2px rgba(29,29,30,.05), 0 6px 20px rgba(29,29,30,.06);
+  --vurgu-zemin:#FDF3F3; --vurgu-cizgi:#EFD3D3; --uyari-zemin:#FFF8E8; --uyari-cizgi:#E8CE8A;
+  --dolgu:#981A1D; --dolgu-yazi:#FFFFFF;
+  --golge:0 1px 2px rgba(29,29,30,.045);
   --r:12px; --w:940px;
 }
 @media (prefers-color-scheme:dark){
@@ -44,8 +45,9 @@
     --altin:#E0BE72; --altin-metin:#E0BE72; --altin-soft:#5A4A23;
     --murekkep:#EDEAE7; --gri:#A9A5A1; --cizgi:#38343A;
     --zemin:#17151A; --zemin-alt:#1E1B22; --kart:#221F27;
-    --vurgu-zemin:#2A1D1F; --uyari-zemin:#2A2418; --uyari-cizgi:#5A4A23;
-    --golge:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    --vurgu-zemin:#2A1D1F; --vurgu-cizgi:#4A2C2F; --uyari-zemin:#2A2418; --uyari-cizgi:#5A4A23;
+    --dolgu:#E8636A; --dolgu-yazi:#17151A;
+    --golge:0 1px 2px rgba(0,0,0,.28);
   }
 }
 :root[data-theme="dark"] .logo{background:#fff;padding:10px 14px;border-radius:10px}
@@ -54,7 +56,8 @@
   --altin:#E0BE72; --altin-metin:#E0BE72; --altin-soft:#5A4A23;
   --murekkep:#EDEAE7; --gri:#A9A5A1; --cizgi:#38343A;
   --zemin:#17151A; --zemin-alt:#1E1B22; --kart:#221F27;
-  --vurgu-zemin:#2A1D1F; --uyari-zemin:#2A2418; --uyari-cizgi:#5A4A23;
+  --vurgu-zemin:#2A1D1F; --vurgu-cizgi:#4A2C2F; --uyari-zemin:#2A2418; --uyari-cizgi:#5A4A23;
+  --dolgu:#E8636A; --dolgu-yazi:#17151A;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -83,7 +86,7 @@ html[lang="tr"] .i-en,html[lang="en"] .i-tr{display:none!important}
   background:var(--kart);align-self:flex-start}
 .dil button{appearance:none;border:0;background:transparent;color:var(--gri);
   padding:7px 16px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;min-height:38px}
-.dil button[aria-pressed="true"]{background:var(--bordo);color:#fff}
+.dil button[aria-pressed="true"]{background:var(--dolgu);color:var(--dolgu-yazi)}
 .dil button:focus-visible{outline:2px solid var(--bordo);outline-offset:-2px}
 
 /* --- gezinme --- */
@@ -119,10 +122,10 @@ code{font:600 .87em/1 ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monos
   padding:18px 20px;box-shadow:var(--golge);margin-bottom:16px}
 .kart h3{margin-top:0}
 .izgara{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
-.not{border-left:3px solid var(--altin);background:var(--uyari-zemin);
-  border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 16px;font-size:.93rem}
-.onemli{border-left:3px solid var(--bordo);background:var(--vurgu-zemin);
-  border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 16px;font-size:.93rem}
+.not{border:1px solid var(--uyari-cizgi);background:var(--uyari-zemin);
+  border-radius:var(--r);padding:15px 18px;margin:0 0 16px;font-size:.93rem}
+.onemli{border:1px solid var(--vurgu-cizgi);background:var(--vurgu-zemin);
+  border-radius:var(--r);padding:15px 18px;margin:0 0 16px;font-size:.93rem}
 .not p:last-child,.onemli p:last-child,.kart p:last-child{margin-bottom:0}
 .kaynak{display:block;margin-top:8px;font-size:.78rem;color:var(--gri)}
 
@@ -143,15 +146,15 @@ tr.vurgu td strong{color:var(--bordo)}
 /* --- akademik kadro --- */
 .kadro td:first-child{white-space:nowrap;color:var(--gri);font-size:.84rem}
 .kadro a{word-break:break-all}
-.bsk{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;
-  background:var(--bordo);color:#fff;font-size:.68rem;font-weight:700;
+.bsk{display:inline-block;margin-left:6px;padding:3px 9px;border-radius:999px;
+  background:var(--dolgu);color:var(--dolgu-yazi);font-size:.72rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.05em;vertical-align:1px}
 
 /* --- adım listesi --- */
 ol.adim{list-style:none;padding:0;counter-reset:a;margin:0 0 16px}
 ol.adim>li{counter-increment:a;position:relative;padding:0 0 0 38px;margin-bottom:13px}
 ol.adim>li::before{content:counter(a);position:absolute;left:0;top:1px;
-  width:26px;height:26px;border-radius:50%;background:var(--bordo);color:#fff;
+  width:26px;height:26px;border-radius:50%;background:var(--dolgu);color:var(--dolgu-yazi);
   display:grid;place-items:center;font-size:.78rem;font-weight:700}
 
 /* --- büyük sayı --- */
@@ -186,15 +189,15 @@ legend .ops{font-weight:400;color:var(--gri);font-size:.85rem}
 .skala span{display:grid;place-items:center;min-height:52px;border:1.5px solid var(--cizgi);
   border-radius:10px;font-weight:650;font-size:1.02rem;background:var(--zemin-alt);
   transition:background .12s,border-color .12s,color .12s}
-.skala input:checked+span{background:var(--bordo);border-color:var(--bordo);color:#fff}
+.skala input:checked+span{background:var(--dolgu);border-color:var(--dolgu);color:var(--dolgu-yazi)}
 .skala input:focus-visible+span{outline:2px solid var(--bordo);outline-offset:2px}
 .skala-uc{display:flex;justify-content:space-between;color:var(--gri);font-size:.79rem;margin-top:7px}
 textarea{width:100%;min-height:90px;padding:11px 13px;border:1.5px solid var(--cizgi);
   border-radius:10px;font:inherit;font-size:.95rem;background:var(--zemin);color:var(--murekkep);resize:vertical}
 textarea:focus{outline:0;border-color:var(--bordo)}
-button.gonder{width:100%;min-height:50px;border:0;border-radius:10px;background:var(--bordo);
-  color:#fff;font:inherit;font-size:1rem;font-weight:650;cursor:pointer}
-button.gonder:hover:not(:disabled){background:var(--bordo-acik)}
+button.gonder{width:100%;min-height:50px;border:0;border-radius:10px;background:var(--dolgu);
+  color:var(--dolgu-yazi);font:inherit;font-size:1rem;font-weight:650;cursor:pointer}
+button.gonder:hover:not(:disabled){background:var(--bordo-acik);color:var(--dolgu-yazi)}
 button.gonder:disabled{opacity:.55;cursor:not-allowed}
 button.gonder:focus-visible{outline:2px solid var(--murekkep);outline-offset:2px}
 .durum{margin-top:13px;font-size:.92rem;text-align:center;min-height:1.4em}
@@ -208,7 +211,7 @@ footer{margin-top:40px;padding:26px 0 40px;border-top:1px solid var(--cizgi);
 footer p{margin:0 0 7px}
 footer a{color:var(--gri)}
 
-.atla{position:absolute;left:-9999px;top:0;background:var(--bordo);color:#fff;
+.atla{position:absolute;left:-9999px;top:0;background:var(--dolgu);color:var(--dolgu-yazi);
   padding:10px 16px;z-index:100;border-radius:0 0 8px 0;text-decoration:none}
 .atla:focus{left:0}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
