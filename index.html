@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KGTÜ Bilgisayar Mühendisliği — Oryantasyon Rehberi</title>
+<meta name="description" content="Konya Gıda ve Tarım Üniversitesi Bilgisayar Mühendisliği Bölümü 2026-2027 Güz dönemi yeni öğrenci oryantasyon rehberi.">
+<meta name="theme-color" content="#981A1D">
+<meta name="robots" content="index,follow">
+
+<!--
+  ============================================================================
+  KGTÜ Bilgisayar Mühendisliği — Oryantasyon Rehberi
+  2026-2027 Güz dönemi · Oryantasyon: 24 Eylül 2026
+  ----------------------------------------------------------------------------
+  GELECEK YIL GÜNCELLENMESİ GEREKENLER:
+    1. #takvim  tablosundaki tüm tarihler (kaynak: akademik takvim PDF)
+    2. Sayfa başındaki "Oryantasyon: ..." tarihi ve altbilgideki güncelleme tarihi
+    3. #kadro   tablosu (kaynak: bölüm akademik personel sayfası)
+    4. #mufredat tablosu, müfredat değişirse
+    5. Yemekhane ücretleri (§Kampüs)
+    6. FEEDBACK_ENDPOINT — yeni Apps Script deploy edilirse
+  DEĞİŞMEYENLER (yönetmelik değişmedikçe): §Akademik Sistem, §Mezuniyet
+  ----------------------------------------------------------------------------
+  Harici bağımlılık YOK. Tek dosya. Logo base64 olarak gömülüdür.
+  Dil: <html lang> özniteliği ile değişir; .i-tr / .i-en sınıfları CSS ile gizlenir.
+  ============================================================================
+-->
+
+<style>
+:root{
+  --bordo:#981A1D; --bordo-koyu:#630C0D; --bordo-acik:#B93327;
+  --altin:#C8A253; --altin-metin:#8A6A1E; --altin-soft:#F1D68E;
+  --murekkep:#1D1D1E; --gri:#5C5C60; --cizgi:#E2DEDA;
+  --zemin:#FFFFFF; --zemin-alt:#FAF7F4; --kart:#FFFFFF;
+  --vurgu-zemin:#FDF3F3; --uyari-zemin:#FFF8E8; --uyari-cizgi:#E8CE8A;
+  --golge:0 1px 2px rgba(29,29,30,.05), 0 6px 20px rgba(29,29,30,.06);
+  --r:12px; --w:940px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .logo{background:#fff;padding:10px 14px;border-radius:10px}
+  :root:not([data-theme="light"]){
+    --bordo:#E8636A; --bordo-koyu:#F0949A; --bordo-acik:#E8636A;
+    --altin:#E0BE72; --altin-metin:#E0BE72; --altin-soft:#5A4A23;
+    --murekkep:#EDEAE7; --gri:#A9A5A1; --cizgi:#38343A;
+    --zemin:#17151A; --zemin-alt:#1E1B22; --kart:#221F27;
+    --vurgu-zemin:#2A1D1F; --uyari-zemin:#2A2418; --uyari-cizgi:#5A4A23;
+    --golge:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"] .logo{background:#fff;padding:10px 14px;border-radius:10px}
+:root[data-theme="dark"]{
+  --bordo:#E8636A; --bordo-koyu:#F0949A; --bordo-acik:#E8636A;
+  --altin:#E0BE72; --altin-metin:#E0BE72; --altin-soft:#5A4A23;
+  --murekkep:#EDEAE7; --gri:#A9A5A1; --cizgi:#38343A;
+  --zemin:#17151A; --zemin-alt:#1E1B22; --kart:#221F27;
+  --vurgu-zemin:#2A1D1F; --uyari-zemin:#2A2418; --uyari-cizgi:#5A4A23;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:4.6rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--zemin);color:var(--murekkep);
+  font:400 16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-feature-settings:"kern" 1;
+}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 16px}
+
+/* --- dil anahtarlama --- */
+html[lang="tr"] .i-en,html[lang="en"] .i-tr{display:none!important}
+
+/* --- başlık --- */
+.ust{background:var(--zemin-alt);border-bottom:1px solid var(--cizgi);padding:26px 0 24px}
+.ust-ic{display:flex;flex-direction:column;gap:20px}
+.logo{width:min(300px,72vw);height:auto;display:block;flex:none;object-fit:contain}
+.baslik h1{margin:0 0 6px;font-size:clamp(1.45rem,4.6vw,2rem);line-height:1.2;letter-spacing:-.015em}
+.baslik .alt{margin:0;color:var(--gri);font-size:.95rem}
+.rozet{display:inline-block;margin-top:12px;padding:5px 11px;border-radius:999px;
+  background:var(--vurgu-zemin);color:var(--bordo);border:1px solid var(--cizgi);
+  font-size:.8rem;font-weight:600;letter-spacing:.01em}
+.dil{display:flex;gap:0;border:1px solid var(--cizgi);border-radius:999px;overflow:hidden;
+  background:var(--kart);align-self:flex-start}
+.dil button{appearance:none;border:0;background:transparent;color:var(--gri);
+  padding:7px 16px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;min-height:38px}
+.dil button[aria-pressed="true"]{background:var(--bordo);color:#fff}
+.dil button:focus-visible{outline:2px solid var(--bordo);outline-offset:-2px}
+
+/* --- gezinme --- */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--zemin) 92%,transparent);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--cizgi)}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:8px 16px;max-width:var(--w);
+  margin-inline:auto;overflow-x:auto;scrollbar-width:thin}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--gri);font-size:.86rem;font-weight:600;
+  padding:7px 12px;border-radius:999px;display:block}
+.nav a:hover{color:var(--bordo);background:var(--vurgu-zemin)}
+.nav a:focus-visible{outline:2px solid var(--bordo);outline-offset:2px}
+
+/* --- bölümler --- */
+section{padding:44px 0 8px;scroll-margin-top:4.6rem}
+section+section{border-top:1px solid var(--cizgi)}
+h2{margin:0 0 4px;font-size:clamp(1.25rem,3.4vw,1.6rem);letter-spacing:-.012em;line-height:1.25}
+h2 .no{color:var(--altin-metin);font-variant-numeric:tabular-nums;margin-right:.5ch;font-weight:800}
+h3{margin:30px 0 10px;font-size:1.06rem;letter-spacing:-.005em}
+h4,h3.ufak{margin:18px 0 6px;font-size:.95rem;color:var(--gri);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+p{margin:0 0 14px}
+.giris{color:var(--gri);margin:0 0 20px;font-size:.98rem}
+a{color:var(--bordo);text-underline-offset:2px}
+a:focus-visible{outline:2px solid var(--bordo);outline-offset:2px;border-radius:3px}
+ul,ol{margin:0 0 14px;padding-left:1.3em}
+li{margin-bottom:6px}
+strong{font-weight:650}
+code{font:600 .87em/1 ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  background:var(--zemin-alt);border:1px solid var(--cizgi);border-radius:5px;padding:2px 5px}
+
+/* --- kart ve kutular --- */
+.kart{background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--r);
+  padding:18px 20px;box-shadow:var(--golge);margin-bottom:16px}
+.kart h3{margin-top:0}
+.izgara{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+.not{border-left:3px solid var(--altin);background:var(--uyari-zemin);
+  border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 16px;font-size:.93rem}
+.onemli{border-left:3px solid var(--bordo);background:var(--vurgu-zemin);
+  border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 16px;font-size:.93rem}
+.not p:last-child,.onemli p:last-child,.kart p:last-child{margin-bottom:0}
+.kaynak{display:block;margin-top:8px;font-size:.78rem;color:var(--gri)}
+
+/* --- tablolar --- */
+.tsar{overflow-x:auto;margin:0 0 18px;border:1px solid var(--cizgi);border-radius:var(--r);
+  background:var(--kart);-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:min(100%,420px)}
+caption{text-align:left;padding:13px 16px 0;font-weight:650;font-size:.93rem}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--cizgi);vertical-align:top}
+thead th{background:var(--zemin-alt);font-size:.76rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--gri);font-weight:700;white-space:nowrap}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.vurgu td,tr.vurgu th{background:var(--vurgu-zemin)}
+tr.vurgu td strong{color:var(--bordo)}
+.kod{font:600 .85em/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--gri);white-space:nowrap}
+
+/* --- akademik kadro --- */
+.kadro td:first-child{white-space:nowrap;color:var(--gri);font-size:.84rem}
+.kadro a{word-break:break-all}
+.bsk{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;
+  background:var(--bordo);color:#fff;font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;vertical-align:1px}
+
+/* --- adım listesi --- */
+ol.adim{list-style:none;padding:0;counter-reset:a;margin:0 0 16px}
+ol.adim>li{counter-increment:a;position:relative;padding:0 0 0 38px;margin-bottom:13px}
+ol.adim>li::before{content:counter(a);position:absolute;left:0;top:1px;
+  width:26px;height:26px;border-radius:50%;background:var(--bordo);color:#fff;
+  display:grid;place-items:center;font-size:.78rem;font-weight:700}
+
+/* --- büyük sayı --- */
+.sayilar{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:18px}
+.sayi{background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--r);padding:16px;text-align:center}
+.sayi b{display:block;font-size:1.65rem;line-height:1.15;color:var(--bordo);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.sayi span{display:block;font-size:.82rem;color:var(--gri);margin-top:3px}
+
+/* --- SSS --- */
+details{border:1px solid var(--cizgi);border-radius:var(--r);margin-bottom:9px;
+  background:var(--kart);overflow:hidden}
+summary{padding:14px 18px;cursor:pointer;font-weight:600;font-size:.96rem;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;align-items:flex-start;min-height:44px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--bordo);font-weight:700;font-size:1.25rem;line-height:1;flex:none}
+details[open] summary::after{content:"\2212"}
+summary:focus-visible{outline:2px solid var(--bordo);outline-offset:-2px}
+details>div{padding:0 18px 16px;font-size:.94rem;color:var(--gri)}
+details>div p:last-child{margin-bottom:0}
+details>div strong{color:var(--murekkep)}
+
+/* --- form --- */
+form{background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--r);
+  padding:22px 20px;box-shadow:var(--golge)}
+fieldset{border:0;padding:0;margin:0 0 22px;min-width:0}
+legend{padding:0;font-weight:650;font-size:.97rem;margin-bottom:10px}
+legend .ops{font-weight:400;color:var(--gri);font-size:.85rem}
+.skala{display:flex;gap:8px;flex-wrap:wrap}
+.skala label{flex:1 1 56px;position:relative}
+.skala input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.skala span{display:grid;place-items:center;min-height:52px;border:1.5px solid var(--cizgi);
+  border-radius:10px;font-weight:650;font-size:1.02rem;background:var(--zemin-alt);
+  transition:background .12s,border-color .12s,color .12s}
+.skala input:checked+span{background:var(--bordo);border-color:var(--bordo);color:#fff}
+.skala input:focus-visible+span{outline:2px solid var(--bordo);outline-offset:2px}
+.skala-uc{display:flex;justify-content:space-between;color:var(--gri);font-size:.79rem;margin-top:7px}
+textarea{width:100%;min-height:90px;padding:11px 13px;border:1.5px solid var(--cizgi);
+  border-radius:10px;font:inherit;font-size:.95rem;background:var(--zemin);color:var(--murekkep);resize:vertical}
+textarea:focus{outline:0;border-color:var(--bordo)}
+button.gonder{width:100%;min-height:50px;border:0;border-radius:10px;background:var(--bordo);
+  color:#fff;font:inherit;font-size:1rem;font-weight:650;cursor:pointer}
+button.gonder:hover:not(:disabled){background:var(--bordo-acik)}
+button.gonder:disabled{opacity:.55;cursor:not-allowed}
+button.gonder:focus-visible{outline:2px solid var(--murekkep);outline-offset:2px}
+.durum{margin-top:13px;font-size:.92rem;text-align:center;min-height:1.4em}
+.durum.ok{color:#1A7F4B;font-weight:600}
+.durum.hata{color:var(--bordo);font-weight:600}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .durum.ok{color:#5FD79B}}
+
+/* --- altbilgi --- */
+footer{margin-top:40px;padding:26px 0 40px;border-top:1px solid var(--cizgi);
+  background:var(--zemin-alt);color:var(--gri);font-size:.86rem}
+footer p{margin:0 0 7px}
+footer a{color:var(--gri)}
+
+.atla{position:absolute;left:-9999px;top:0;background:var(--bordo);color:#fff;
+  padding:10px 16px;z-index:100;border-radius:0 0 8px 0;text-decoration:none}
+.atla:focus{left:0}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Dar ekranda akademik kadro tablosu kart yığınına dönüşür:
+   e-posta sütunu 375px'te okunmaz hâle geliyordu. */
+@media (max-width:620px){
+  .kadro thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .kadro,.kadro tbody,.kadro tr,.kadro td{display:block;width:100%}
+  .kadro{min-width:0}
+  .kadro tr{padding:13px 16px;border-bottom:1px solid var(--cizgi)}
+  .kadro tbody tr:last-child{border-bottom:0}
+  .kadro td{border:0;padding:0}
+  .kadro td:first-child{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .kadro td:nth-child(2){font-size:1.02rem;font-weight:600;margin:1px 0 4px;color:var(--murekkep)}
+  .kadro td:nth-child(3){font-size:.86rem}
+  .kadro a{word-break:normal;overflow-wrap:anywhere}
+  .kadro .bsk{margin-left:0;margin-top:4px;display:block;width:fit-content}
+}
+
+@media (min-width:860px){
+  .ust-ic{flex-direction:row;align-items:center;justify-content:space-between;gap:28px}
+  .ust-sol{display:flex;align-items:center;gap:26px;flex:1;min-width:0}
+  .dil{align-self:center}
+}
+@media print{
+  .nav,.dil,form,.atla{display:none}
+  body{font-size:11pt}
+  details{border:0}details>div{display:block!important;padding-left:0}
+  section{page-break-inside:avoid;padding:14px 0}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#666}
+}
+</style>
+</head>
+
+<body>
+<a class="atla" href="#ana"><span class="i-tr">İçeriğe atla</span><span class="i-en">Skip to content</span></a>
+
+<header class="ust">
+  <div class="wrap ust-ic">
+    <div class="ust-sol">
+      <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqgAAADACAMAAAD/XmFwAAAB/lBMVEXYqmeYJh/RrWOiXTEiIhnSrWHRrWL25pnw1Z3v0ox2KR26ozDv043lx3jFbjh9fX3/AADVo5uXGxz9qqi2aWKYHB+6mFm9iivkzXN9fQDLmzrMlzO+jiy0amrFlDXlxHi+iiu8l1bx4N7EkjK8l1YdHSDmxXgeHiD7fwjIXUC9lleiXBEeHiCdHB5VAAAA/wCpP0AAAFV//3+qqqrALyUAAACYGh25MydjDA0dHR7+/fyaHSCiHCAeHiCYGx2SCw+qAADx1o6zKyQcHB3Ytm8cHB0cHB0cHB0cHBzOqGccHB0bGxtcBQjpyoWcJCTmxXXOplMgICHHlTNyExOzWFbGmle+iivZs1klJSW6ZmX645nQmJWsR0flx8WzRS/ium9/AADt2NbXp6b//wD06Oa9l1eqqVXANindtLLPh1XIhoTCeHa+fz7BjS7NeE41NTX//3/EVjn/qlW/v3+4hlEAAD3TmGWyVjKxaEbKaEbgvLrBSTP///+xd0r/f3/7vn0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACVFXzTAAAAgHRSTlPs9h//HKFgFuqe/xFd8v8CAf81BP9aHmAXAuYc6gNZmqZk/5+dXF3UAv/SBKmjAwH/AwID/wD+///4///+/qz/A/7/z/1NsG8u/ZAR//3//f3+/v///f39C//+//////4C//8B//wD///+//8E+/8EAv8DBP4E/v//////Af8CBYrWpkYAADbDSURBVHja7Z2JW9tItujNDkkI9CSvb9Lrm/R0T/dM33ffJgvj5+vxvss2tjssxr4sYU3YEgh7/vV3zqkqqSRLtgwE3LHq+xKEtViUfjp7VfkUr3XfDj6N4Y+xsScT4xPKs47HbyijvpHR0UE69/GB14HdN5/XBd1TeikgjWAbU446nHF5MBhvNpuvX4+MMFjfbkx7/eiB+nkpJVH6ZCISWVwkTiPjB51E6pEyUoy/huZr+l7rrHqd6YH6mdrle5KlT8Z1SLEtPlHGOij+wWY8TqSWSq99vpJvZBCF8Ntrr0s9UO+8TT8bs1AKP4qZAir/63bITW9c+4rxeAkgJVQRVmT1e0W5PlrzOtYD9W6FaQulzZO9i6d/7EUKixNtReqRMgqc1q7eNA73aiXOaglYJRvAE6seqHdomQKI12CXckrhh2/vUI1Go0/nVB/5U85m6tTUYBM0/8VVqQEnNA63axzV0uvSyOi3cHHPWvVAvZP2fy5JmC6Oc0oLvrOL6EBUVVUE9RD9qU/P/sPp7DH0pIrb0e1SQ8VTourhUxCsjFU0ARRl7cjrZA/U27ZnEPYcm4iMLwpZeoaSUaUGoDaiJ6D8nf0ppvjjDQEqY/UCWBVtZBQP8+JVHqi3wvSSYSrs0r0LASkDFfR5g/ypKfsw/trGIHhSxb2oup1RpRNRruqo+kbfKoonVT1Qb26bAn1PJpjOB2F6cqgOSJgyUNUo+FMRJ3/qPQrUYgmONYHKWH26DZTWaiBcv/nBQ9UD9caYPiNMuc4v7DXMlApQVbUJBzyx9acO1gaLAOohnFizgIqnM7Faq80hqo8hkOV1ugdqt+1yDJW+wLR5pg6oraSh6lejv4FIHX/xbM0hJ1WsIeA2oKJYbaC1Wpub+wZQBbBfeh3vgdpVI0wjDNOI77doVLXj7OnrC9iB/hSI1Pc2FxktQpL/whFUZgHMIanAKqLqeVUeqN1o/UsZ00N7TAlU1OrRC/KnLq3+1NrBi2KxCaEpPPbEHlSyAABVInXup28x4+o1D1RXbQ1k45MIT0E5Y6qDqka3bf2pMeXHyWYxzo7NOILKUP1GR/Wxl1f1QHXTNkjrs4BU8zdnTBHU+CHb3STlbyb1QCGBehbtCKqMKur/t95D8EDt1KbHlBcC08JZO0wR1EkGavQM/amxDZMsPFqbBE4Fn5kTtW0Dt2qONRCq33tOlQdqB+sUxOl4pFAA8CLbarQDXE+LXKJGfS3+1Hvll8liURwAoHa6WLTxjqP6gxdU9UBt3z4pX4M4LQCokczFgKp2BPUpB/UQyR5bM/yp62tQ/EXuSUGLdwKV6X8uVB977r8HqnO7fMbEKQrUDlpfgHom0v418qeeyZ5UBExUkeB3A6qMKgjVX70H4oHq5EU94eL0RHWBFcjRSQIVU1aNgsmfOlJIoEKSf5MEc8MVqHDJj1z///RPz6fyQFXs8/KDE7o4VV1RdRjBIze1yiZL+Y+PHazxYpSxyUIRPanNaKUbUA2h+s1jj1QPVFvz9BlX++7EKQN1Dw/drAxsshDVBPenxpRfItyTqkQ3EdRJl6CiUEVOQbD+m/KrF1L1QG0xT58UWNuLukZKgBrNRzcp5Q/F/geU2XoB8hST/JuVyiZJ1ELN7VVV5v7Dv588Q9UD1dxg5BLjNNI8dA2UDiqIzQpP+TN/inlSxYvo5kCeBCpkWbe7uK46BKC+ezf301svo+qBanKjNia6VPscVIYf8OjfxJQ/86eekeKHfZvRmQo78iLSBahM/b9794dnqHqgyu174UYV9rqhScavkh/YpJR/5MXBxsGncQxN8Y9NSHej/pHUdx6pHqiSuz/OzNOzrmCSQAWRWlGFP/WMFD8EBDb9+YpF9nah/p8yUv/NI9UDVXBaKEAwqRC/6I4lBFX35SvAJKX8wZ8aixSKkUx0U8vntc0bggptaO7dH3+880j1QOVhKeS0GC9k1G5RkkE9e4TKH1P+4wcU5gKnrJIfurC6Xd0ZqkjqnEeqByqXp/HJeOFE7Z6khg5q9DBeyUcx5V8oTKBXVkNOr4QYjf622D2omKb6g5H6Tw9Uj1PgNB4vdK+ZsUV84rQB32RlhkqoCwhrsQFm62mxIUA9uwmo8Cb8wUn91QNV6e+hUThM9MacSqCCGZDB4H6RhbkAy/yQYZciqAPqbUh964Ha1/HTweZtOFULOqgQ71/MVAb+7x5VtUBoamYoUrwwQB2/EageqR6oClZJ4zwmwOneDTlVCxmqnuL+EsjU6GYTlf8ZcsoM2E0NclMA6tmNQBWk9rvv39egwkR7PrRPx2/MqVpEibpZ8W+yKn8kFUNUmU0/yNMCy8bO4EDVvfGzG36JIPWx8tgDtS/bfzxTRojT7RtzqhZRolJNCh84lRlAXg+BU9hmlVVYlXILUDmpmE196YHanw7/rTlVmz4G44w+FjUzcAj/TjHkT7WqUJWi3g5UndRfv1/zQO1HTmlCSPd1ovagqqzMz09iE83TTLR5WI0whwr3UBIVQP3t5t/DSf3vfWym9i+oR8pgHDnN3AJTNSpG6/PiE5guDUhtZihCRSK0wsv8tscPb/FCRD9+h6T2sUPVt6BOrRGn8e7zpmZQm6wmRcszlylC46xFhErVq1Ki24uHt/qioe8wSPW4b8tTfX1soKLi77oOxQoqn7Bnc4gRySnlIX/gt9K4E1A5qe++XXvpgdqHBmr87Fb0wCBpDmp0bwiVP6tIJU6LFJmqbF+IbMDtXgmopeprM9XXtxkpUvx7t4RHBxXGRA3huCma1480P8YSKvkM/4bbgxpV/2Bm6pEHat+0tY1PPuS0dktOJVAHtiOPZvi4KRKpF1g2XSvq+dXIbSUquf4Y9//eA7WPDNQmOVK3bdFtAaraiBQezWxiHhVBhewpRKau9JKpOwCVmalz3x195hV/99n/+9ZP5A0P1HtV/IfR24P6WqpJKUAqNZpBx78QOVTV/FWk2DAkauPW38bM1H/rS8//oUFNJ9I5sZVgW/PpVCqbSqTFIcP6Zi7xc47+Tyj6J3wnnD3sXvEP+u7CQLWAehGJxCsDtEAaRv03Z04jUplf5i5AFcq/uzJq6CTeYblUim8Np7LQUnrPpvTNxM8p3P+z/gF+Qk9mP5VKzfcrqMlygHXIcCAUoO5IxQKhcjkUCsR4TwXKAc5gIlSGTswFQiFBarZcZpuxcjnp9jufMcV/oqp3CSqyCKRGYc1JFKhYlYKGqrHzLr4O4/7g+XcnUtOBckz0djlLn1AfQy8Hkkw4JMriEOhJfA7wQSBnnL7PDgqVE30LaoiBOh8LBKgTUuUAb3yPAp3KGUwEQiklp6QCgaTow1CMb0DLufvKg2mm+O9AwkFUikD1i5knFzN+o3qqwMv8BjBu5Suod0EqmaldKn/oHNZLouPgVYfuisWwk2M5JgIC4uVPso6EHykuDELsyeBGKNvvoCZDrA9y0HnJdG4+l4gJCLE/Ewao+3RM2tyHqZB+kAsLdSSeybhU/FGbZp7EvyGX+RUWTwagIDVyNjBEcpXqUShnZQa1w2XbNKb8X67dANS0eJmh2wJoKeWA3FCKgxoIzIsnkoNOTsBJ+yZhQA8idtzPoM4jaDHOIt8wupX6Z14HlWGZ5OaCrtNigXLWJaejyOlJR0IHkJ3G4eHZ3t42b3t7Z4eHDcaZBKoapVHRIEthOvWTgb3FJoz6E2V+KlEc9RUlRNXGBV2Xt6dPnx5eNMS+O1f+HNRhobRQWvKXOsXlA4LKpWUyJLqdyVhdGOBlhIToV4ma1mVkwtAuMf6Ok4ZKyaDmqMP2jT7MAaUx3cpq26avX/gQ1DYePzKqXvy2d+Ir4Fpoi3zxc95gXv5Mbe/pBWKFqr9hKvODE7ajhbMGef5YLwXBVBKrviaBCOTvbWeaRdYmJ+Px19gmcatU2+bXjbb3/DGT+muXoGJvia4VakxRfg4YoAaEbmOgcpFhCFQQDyn+APpWourvui2oIWaA7uugoiBIyn0IOxLZkKu3fYwJVKca1OjAgHpxdtJEQCOFZuZk77T6scGDTI1G4+Pp3nYNQANca3uwNOrTeMMo5oOaFGzbzRoNR/EZBYDAcBPgP6vBmTCFABB5ql+VLvxx6Gq7VoojvRm8sCOsFPbvTqQyiWroKgnUhAGqcAUEqAp7KLowgB0xo8f7EdSE9K7bglqO0QHzBqjMSk3qfQi9OQzwunjb1y4HM/GMfagfJKl6uOcrLI4vFjLbpw1V8/vD0PxSY79q6sfTWgaGr25v86oWXuZXEHIXi6hEmR8Tts1tkLfFzN7HRtTv1DS1cbqdKcJxvm2AdSDqWJ3ybRchKgJ1OGCobRtQwXXiakoHlcg20MwhyA+n+3tBouLrnGsDKnimrJd1UMm2yul9uA+HGL5tp2IUFKittSggwhpnJ4Xx8QiwpCKRhE4Qmi1TsFv9uB3nq56A4JzBIXx7iwapTTHRD7cKipnThuY3c297XU093Y7jioF71tWsdX8KROr3XYAK3RMzYnq2oIZSCeYn6KASlYZApc7Phh5K9/cAqFnpXXcAlbtPBqgIqeESpOkkN2/72hoJ1JNWSi/2QN0XMqcgRsOMUL+LpjW2mUSVy/w4qDR9f/4RV/Dbp1F/2O+yAc3Rj9t4Qye/tbBK/lQ3IhVfYeisrNIeVHSfUjKoKFINXQ+fD6P7muxbUMtydM4B1HnyQQ1QKR6l92EqxKypzm/790ygmj0pkKVAaSS+19BI3gVd4oQsz8zwaSX3nqMxCmWngtQiM11rfJK0mRm38BuyVT09QVbRYrX6U92IVHRVy/Jb7AAqi7MYoJIbG/jZEA3M5sr1K6ixzhKVhfVkUNHk0gOnMerbtIu3fe1rcPnjNfPqzmcwcgREKQq87lCqzEBjQ01Alg5BjIqX+aFARXdtZkaU+VXyeGylm6sHUbJqDQg9FEFsR60i9bHrWX4QQOhM3bxyApUFs2MGqBgLiCmS5pd9qz60UVE6zreXqBj7C6XSkszUI6+c0BwFrXJdClSY1Wy7CJSSWu4WUmJvhk8pPbC9OJCn4hNO6gUErfInBTF7Kh2a75ZVhNXf2C5GfGeyWGUi9agLG3U/Jr3GTqCivByWJKoeS+WE5tKQInig5FRPhKeSIb0THUFFsSCH8ST5iaDHYpgRDHV42y/XZIFKwnRSyNJuAPLrlCJ9LP6kRrAgFUtTSKDWcPr+7UW+FsWMcXSXrJJg1T7Wik1DrKJIxdqUl114/emA0XkOoOYo7CeDasRVmBnAWq5vw1MgCwWejqDiKx2zBxXtXFZi0eFth/K+jC5Q0TKNx7cb3VNakSgl9gbYONPFwiMq86MGI1DyHxZ5mV/FfPwNWPVHTzPF2qEYiTjUzZBUPY5qRERtQd0npSSTaICKciKELfBAAaqeAJVe90QHUHOBQMAWVDTzU9REqrV9lr/GMd2OZ041f/eU2jRR5ld4NLBJldNYjjJzxcv8IDllPSHfJap+ZgLES08JVRKp3z2e7gLUY1I86baqX2SobEDFtFQCW/aBdH9PgDpPr3uah0R0/kSun3v35OjbgGq4WB0CVFNMoEIMNRr9WIvXGu7jRU7ClGNX4bXRka+ozA8alPmd8jI/jLHaNn/XTb0qcVS7GeUvIsxJEa9O6jaSnusXfUhpQBtQYWteeLGx/pWoTLHnhCmKG7mk6JGYVL1jB6qRO02F2r7tLNifIUwzH9TuObHHVCh/HIWyGB+g0hQo83suyvzUGYd2A7Hq14ZqiCqmp1xHqERmJCccKqqeohJ0axWFpV4yaRRT6IbWAyWnHhxUqaInySupITydTGLsj7/kAT2jr9dIUo8meVpKcv/bvu2XBz4UqAOA6dWNMG3ToqLMLzOgUpnfKXpUhzTVX37mLlH1f6zVnqJIhdIUd+5UTnQLSQGqk5TqUefNWgkhbgVVCgxmpYfQVxX+Zf2dhTq9fZSkrPg8JPoDSs6Ngw1QQ7ykPxEy6vti5dBwB1cq83G7dKXdMaZM+bMyv8zA2WJzoCrK/ERkyhFV/w1QfTd3iCLVpe7P6RX+iRCr0ber8NdzfmUJVPF09IEY1PGxPgQ18XtWjHiAMTy0mU6BQE1mUwI5GEAlovypn3UOc6ksL5NMSaN7Uqlcu6GnqPnf3CWm+XyemQP61FNQkKpG9hrkUVF4wTj0blHFAamKq/ppY6QUdpDotazcx9KYqbQxIg2O4uPY9FFXlm1vFOrnaIOg+TNXA3eGKaD36PTkqyFGIE0rTQlUX8FH+SmfnpKCTGrmaqjixOpNUKVxft/2zxoUDw7qsc2W4yGmY46VbsdIA6e1GzBh7+nnZwau4pFxqFt9ntcTVF/JJdZnUab4K/lHOIY6Ev/gyGr3pmr445x7v/+4c68d30UfexJVuZNJJyArddpl2NRBnObzj66+grpVAnLxQ54nqKQyvwiV+UWZWVCMUEE/fObA6g30f9S97vck6p+qvUXN3+hanNq6TkOZCKcUf4yfQNnpDI2bKhig7kWZ4s8PQVkJ+FZs8EkxfvrIVqx2LVSH5v541z+zpfv6aAGUG2h+m9BSPl+5KrBhVChSJybGMXz6CEidUeUyvwJPSeUx8B8Z/3EcGOasfhiwRbVbh2qun2b29fXRPJMA6umtxSno/IKQpeMTT8YUZQJ+XSzA6tJ5WFXiQhep21GsRcnPfEBOJ14oL178MkkmAI7sqw3ZGb7dCVWVSqj+6YH6ZbVrZaRbzV+xU/ocUxCpRKkytqE8IfkKzj+u2nvCRWqhgbUo+UqGOMWlgaEhq5OAahNRzedvaakO/fHuj8f9YqX6/qub9q8/UTNXbKwxza/dSu3nK6cc08g4Ufpp7BIRHBtH9X+VR+V/wQWqD2adBPEbR3f/iXJwiVNdwi19+uVHgeqHR/nbqX+m+83DUb/Up/kvX98sLTGaKWU+3Ebt5/ND8UXkDoQpydJna2Id9TEyVP+BCSpROX2hauRGgXk6xsQpGsrvUaz+iJYqonplYwJ3of5VAPWnfjFSff/5hbZ//4vyP6S/8zFo/lLm4204fXRCE58yTC9RlhpvATNUMzBoOmqU+eWfwwmLYJ5+Mg6dPjpCCwBJjcMqrK36P++eVI2MVMnt/y/lL1/q4/xPn///faHtv8FzU6QSPzRR1Rubp/mZU1rdPEKYjm1Yy13IUIXK6TwtNAnZU4hMXeHGhGIdMnI9xqQqzCjYtNH/XRiqQ3Pv/vhWMlL/pfzlS32aft8NMop/imYGFUzUUhcmaotKptwSYjr+BDA9aNVMaKiSSzUjyvxmYGJfMk+nWg6+fM9QhSkFUaje2FAFIxWyqBsyqP4vtfUJqJg/rbk2UVs5HeLiFDB9dmBrQ6Ghiur/eYXN5vcovghTrozJat+CKkQAcPbL4odWS9Vtvt8SSfVA/dOD+hZ8qZrbKKoVnHzlg671L58pjtMDM0P1gx/L/JBsi3lqMQBg5UAuVEsDNyQVjdSfPIn6ZYE6AqA2bsapUPtPMG2gtKnLVp6Aq7V40ohsf8QY1gTR2yYQoQwyodocuiGpEEn9TnKmPFC/ABvVB6CqN+KUq30Qj0dT7UMo3FBlq0wC11PXbQ9f+6QMjqBPFS9e3cxOtXhTHqh/dlDXlK9rpZIrX8qGU1qIb6K9ODUZqlQGMKa8n+5ceggLCBbtDVW33pS0PKozqDTXmzHfm74V1JvlaJvTzTuDNqcGTa31Wq3nSFum4eHBPgUVKlJK7nypFk5PSZwWQDweKG7WsSBDFdT+mLN5KgvV91DOjaQ2a49uQCp6Uz8Y3pQTqEE+Wyb8xwkQcwqGRTOREm6ZclD6gO8MS6fK+2w+tZsDLviAEtVxhsaHB/WIfKmr7uP8EAtFTsfdYYfxWjJUFyemlDG3xTKDuHrw62bJSqqLyL/6zrQ6qgOo8FSqS1vLy1tLCxr+EvQvLC2RGaQu8bZb9Yf1h6ctrS5ppvMXVlergq2d1VXYWd/S2w7fA4cZH26d75BgrJ+PL+kXWho/x7a16quLT5bPNTzzdHm5Lr4gGN5ZXlY7gyoLZ6uYtmiM1re2VWWYrtpysukjebZH+mk+gY4wnRdsvWrQFtTHbp1+K6cfIpOo9gfdcsoN1SfoWbkeeUDrXL+OW0l1kaNiualf24Ma9KvLs7ytIA7B8NbsbDUcDIars3pbESQGwwuztNu4QHh3dvacf6DOzq7zY8SZ+omrs7Pmj4Phr2BLh27F2LvKpv5Yob2A5uzslv6NmuX7HUCVZHfQb0hxsR00jjH3hlbdXajbTEsrX9W66W/9KCydaFVQdBPSeeGWq4btJSpz+j92z2khzjh91kVWGkXpQRc1TcD0qD2pHe93AMZNffdrR68fOV3Z2sIf61FOlAB1fQXaOrLDSWW8LZlAUdmJnOKlsIY/1pdZWzIk6vL58jmwtw4/+MfI5nNxLfgFdiwv49etksBd5qD6DJ7ptZit+juBqj3fhfZ8dwGRr+8uLe1UOYgLO6tLuyp+qerDY2Qsg/7qK3pRzBer7giBvrC0tbVUpddb6Br6+iVSRgtL5+erz3GzulRHcVlfXYBffKsqVzysLYTV1R36uiVSP6urW1urSwtkfS+Z9ZAZ1Cl30SmLgSo4Vdauu6zRPujq+OlvldEmLjrRov1dVfq91d1+W1ChM+HBLNB8q0DKLgIqgfoVdphWB2KWBQHrJA9Nl4DdC/jk+aka49XW/qwae9hXG7ISvj5Ku3aJy6AB6o78bqy4AlUVwhkusMS2lpGg+jr7ZcGv6XJ/3JiNPgpdEFW3ZndMb+L67Dj9HhxnJ2xJSmNcowPgfv1b4nuwH3awB3dnV8Ma3HEdf9nS9UW4DnqHKQeYgm+Xf7wcZeoC27ktqFB8U6qV1C45vSrEJ5HTjcsuK326XlR38KakYnzKGI5iDyr2+Cr0Y5DjZQGVHlDYkJl++BB6vO6Xdb+PLsEoXtd0wdpqNmrs2zRmpwGAK+d4gk6gSuZg+JzdgAlUdhi3R9yAur6A7bmGZ+zU6wsrxPrK7HldrQO6UXxpluvV6vMVfvOsM5bD+OcuG1/A3ieV7V2vRqPVdfh+PxypSleF/VX4Sk2rr8DbHl5ir/xz6oZl1l0w9ggArcNAD7i7Ff7SA6gLs1uaqlbpSvBJHUfRa3aqf03ZqJVqtWhXij9/WoCwEXD6/h5Kk18AqbiMT8n8snQ0U9m4qX+2B/U5h4oYtAeVrEWu3Jdm10EEyBKHnuSrIKdoC89csFoH8mvxlcACnuD4jmFwrnD9rsF3oEFgBhWfvN/P5ZIbUF8xe4+JNT/ysMxkGJCIQg7J2sIddV1B4O2twPfXJZOY/uRl1Bh4H6gNiEJxcnV2nG4dgHvOvmcXDrIFFScIZZLUCiq/vy36JOro9WMYFZrWFadDwGm8cD+cMpkKnL6udRejMtdOtwM1yL18IMAGVL8OKm6tqIYhYAhDtMmQsAUdVK3FpTaDiup5qTqryzMBatAe1BXm+YFsdSlRtaAGLUjkaBqQxUFlRgUD1Q87VMmSAdXvC8Nek7cGMpKUDtzHDvxV/oXzKp58jifXDVAXSFf4q8u7fntQg3B5VDjBFonqp/vrBOoUgfpG60Lx5wcmkdMflbF7GurBSfVddaX8zQP8OoLKnNB2oBIoq2GmpP2yzGEydkXXkSh7WiOmMqjkFi0AOStBs+rXMBiwYAFVRCJ2Zl+tdiNR/QxU+msEqORAcolqUMOEOWqV9dldv2akGsAQUJlFw0ANchPk3CJRFyQTwl6iMlD9wbYSVQVqNVtQr5XBWq30oQuBCmNIGKfP7m1IEpBaRFKHulH+3YCK0k/Tgh1AJbiQy12T7q/OklVXZz8Ix+WF52QkRp1B3UI9PK4bvMKZCmuvWm1UMAZRHcODXN1x6Uxx97kLUOH6GGCAMG1Qf8PwT94JL5OPiKCKtxkJ1TR1nOi8JagmGxXtceabWkHdcAGqpVT6BAJGBd+LqUvl3tq3EE9FO9VSS9VFoV97G9WIOraVqOD8qNwUlYNB6+S/+phgNcVRTUrUpPrhpGXyebnBC99xWq/Xq7srs/x5SqDWd2bZQ6Ut917/VheggmoGWpbAtoF9Vf2Wz8Fp36GoG4Jax6QEqX7W1lWrRA0GuwVV8vqhT7BV/bagft0R1LzV4Ye1zga7jDPdrq0dTY80Wx2qGfc51Hag+lUe4utgo0YpcoLOfdR0kVWUsX4uHRmo66zJ8QEZVLo8CChVD3YtS/mAqimOimhG6TaXZ1dQnruyUWnZWC3YDajn6LF/hfDpiQr4k1+hKbrCVT9htYPO1DqGfLcogGoCNexGor6SQX21urqCsVvSGJpjwB9ALb1pD6rFkaJCke7i/Hcwontt0OcDh+qD+7C/K4nK7MkFEeJrByodvBD2c6fJfJHzsGCOhbz8UfRlNCcbldJS6IEvM4M3KIG6Wme5XFn1hzGQVUdGltzaqLrqdgcq24IPVmdXloRtQ3e8jgq57mc2atSve/3hBufZABXsH0gtCFB3HUGlaJtho1LoIcg/kV1QM6ijnUA1CbEKGaijLsql7nqo7ODrVjN15m5ArY8vj684hacMUGHXaaOu+gxfXfeWZ/0iKMVjs/4O4akViEpWq/VVZvCytEG9iskFNaz5W0CFu1lYQsPDrUTVmKtt9fqj6GLbef3MQUIzHYznV5qhLJa3zrdWgFHuTMEPAhW8fjCzF8KyRNU0IzylYdRYgMpCx1HWjf4GvEZB+Mjw+kGYLzAbXPU75fpR9bcH1ZKRQgN1pIv8/l21xzxIZYr75+8EVI1njb5qB2qQpaW4bWYuTMEY/RK3SDmoWjtQeVrKyMMQluBMGQawBVQMjL1C4eMeVCFRQfaJOCoE1DGO+kpIVGgLkkSF94Aiq7Mrmkj9ojKm5ABK1FU8YdUAtcoEIQd1GS39JQYqHbnEQVW5AyBAVWfpozrlHQDUsEZfYKj+8M1ANYExBJGpou/FxuW9g4oOVbNF+c/c0kZdEF6/vyOocpmKCRaKBuws6+mjBavEbQWVBUd5i+pYarwUxVD9FJOafc5TjXW/a9WvGemI1YXnO+soDuGFWtl9vkB3ipTt7uys6uE5TIKuLDQgb7W+wiPFePY53hRlCvAd2t2lxByBSoGJqshMYXh5x4dxNHK1znd2ttidLs+eo/2/I0Al02P9K/zmLcrkboX5lRDUc5Df56uabXiqA6jm8roM1ocOWqYguSeH6mDQhyLVrPzvSKLSE20FlcL2DFRKGS1A4rCuLtkUpoBrwd1eI1FqLaKTJOoyujuYLdyyRE13hQWBnzQEqGHKgy+zm+hCosKRu0wPrAaNUjGoBtPCp1w3GJWGGsvHL6sapFo1VlTIDBPoFBDq7ErrCyRLt/yU2jj3M1DhRaf6r/VdBHiBtlee4zavEAD0o+vcCY1SKdn6qkZv/ypLkoA7pfESslf2oA6+aQuqSaBeoUC9fwNVMlNL4Pm7q0x1C+oyqzbbbbVRedi+OstMvhWeAgyrlsIU7rMvGA69CPiHHWxUDHSyr+XFBhxUEetqAVVjFoBLUIN6fAm+IVqFIilRy1FfoIIp9FzQRK7XNfkW67s7u1hOFa1XGStqnf3U6qhSNCgOYCdodXZB+qGq9GL5VbEXa3yqVTVI23yZOrxONKrfk/7NGs/sq1E6lmIVmn1mavBNrfbBVQyVQv1F3+WzB5p8DKZ0aZZci9SPLlQ/RRy/UiF2vTvLE6ASqFvwYKoLS7zIqa4LSp40lQjcmdVr8ejM8yrF+xeqmh2oJDd3w5rIimq6RcoutSPcKwPUIHuUQXegyouEBf1GCWqQD0IISsMRgi1102yVWYeVkh0XyZP3tj/Sr9c+dlPhD7n+N7U3zilUsyeFLv/DKH661w1Q/iWzP+WcnnKR62cPnkdgyDAzgWoUOqPm3zVk5hImxS2FKaLmyHxmwx9sqdVi3hfHGlUjGnpCoqIlpwf86xxUPRrmFlSTzdG2wr91YIDpfPNP6WQb4iyjx4Idhrx0ORRlGiWqM6hygB0mQgOBOuJ2IMnnmc6NgqmuRCqbK+XXToP7dtZNhfU2oK7saH5JORvZUnNhih57lEE1VwVUuQEK+n1cdsTIz1k3ilLIat3CT1iNS9UAdWfWnEXoo+HSyj9qb2qqG1fqDQrUTweXygOSOuIDkWrKpN6iHpVVn1XB+92tqlw9qlVml2l13nCBbdxTr/9Pw5iTtrkxV9ffdf1MqL60VN7zWsugVHPpZ9uacSzfqalRcZJ8iajWp6NQp5S/QcTfBahMoI5a5zW713awRv6USaRWXA3sdwQ16A9LA4n8duZZ0O+N6394UN8SqA0X9X1oofqmN5SHbG/di9Shd+++O3IzU0rLCHy/7ZBIyyj8Nlah/YwANjbfHb0H/QTqx84CdQAV/+g95/it7eXlYEss1e80uE9ewsebKeXPD+pfAdTTzqCCQG2OKA8rUJk/VSrJA6gc/P4oDZc+8kD9UkDdIFCvOkX7Wbn04IODurbmUqTi5OidJ6D4MkDtixmnYSzKmzcOEX/JRM0/h7X9RpRr5aHbY7RSX9cqnUC1TJD6Rc84/e/9MId/u4i/7FufAKgPbaHSi9UqUh0HoX4LWPfDHP79sabGpfKPkkMg1eRKZeK+95c9cL8bJFKHOhmpLIzaFytN+f71pbZpc8TH0e2Xy1HimeZDVaNYQJ0ehDyqXJpSsXX65+a+My+G+sU+zj6RqG3c/rys+dGV6gWJijMP+zrqfnXunez0e0tM/vkblU7belOGL0Wa/+FjU3qtf2dQGwBqvyzb2yegOntTFbPPPzr9fY/cMLpTsu63N1EB1MceqF9Qm0Jvyi6JWjGlTzODveKaHJA7JaVR7UF959KXyiXSSvrnXNtD9u/s5nO53M3OS6f3+xxU5k0NtQP1UQY1/7MeueHH0xbd33rr2rt3kEB96epyiXJMiZUTbY5IBmK5u+I0Foi9vMmJ2VAg8ScFFd6x9Lz0puL/+zm9zc+bX9/53LyTkfpXeyNVLpzCIOr3Sq8s2z5oLqGyN1HdLtqbCCWVWKgdqLFQ4K5AnQ+EYsM9BGoqFktzgJKxLPv596zoGb4zHft7StlXsjH91uGgJHyS+ntMtBTdpPg9mxAdlkvFAtiS/O4TgUAK31dqgQD9l8bXV5yQCjj9oY5GqslEzfSIzy/8fnnslL2J+oNL5+/njhI1Vr5DUMuBm4FaLn8OUJP6ZdOhUIzICoTEW5sqs61EqJxUcngLOsLik0CozFqSXS3AfoNrpbkGge0QXDIUYuemQmUElY4DfunohJIMiUtjB807Gqn2lX6mghRf73DK06h6YUprxB+jqG5NVCX9e0pJ/d6OnlQ2dVegKolU4kbnpROJ3GcA1RDUaZB6DFSQc/McKrYzEQDK5vGI2JR0Wg4PSGZZowOT/PdkABRHjr1fgUA2kUjhJwl2zRCCCl2aAtkZwB/QuXBpLgvgkqn2kdQrZ1ArJ2iivld6x6o2GamtoKpzc6D5D3rjbvdzw60O1LzULB/o582DbTf8Wb3+YwdQQ6lWUBVlGLU0u9kYcrWvH6DL5xA/IC241E9JsWtwULmmCuiaKsk/zgnC7W0+iKTa6H5pIUk0Ud/2UJxi8HVbUIcA1B/c3HAumRTdlvo9ST2U+D1pWG1sZzaWnEdLLZaVTLthOkA0PACP4L+l0rokTJKNFkvN68bdSzrfaFm0/wxr72d2XtZs22UFA/cBKgfIAioczCFLB8CuZ6CmrKAeHx+LQ/eJO0U6pQVU8TehSJ2nK4ZSzvc7vQHjplp1vxzuBxP1Wumd9h7mojC8qRZdAJp/7ls3Tn86VI7phmgozY3BJAc1wHcyG3U4YPhUMcImHdJNNNqTFiZbSH+AKTLPsDFHhNuoSToqwA6PwQPSrbtyOcWfawj3h8SDy5ZDifsDVUg/M6jgCMUUg9hjW1D5390KarkdqFykthWoIkB15QjqEIG61kvZtBGfNFW6neb/xlVwapi/51Inw6Pjz25e7ORefyxgeagoBpLcSMux32PcROOaj45IJVLZAL8W9/oT/LAYM+/2desO2jD/yliK2Xb6bd0XqCHyxMEotYI6L0QtI8wFqHgGu/5+ejjdDlTsqeEOAhXiTra6vyIN6/P1VCESelOS239jze8EKnMmzKDic+OeK+tP5l2Y5DN/oMp8kj919Db055CzhKcS0lNJmiNgTBOyGC476D5BTSbwtltBZTej/93HzjaqThx8AtaL5MY7gUoidb69QMWpHVD3f3QC9TQOvtRRT4GKA/wfOYA68M6t5ncClfWlVaLi89k3jj22A1W3GnDPvsQBv7wAdZ89syzflB7xsflKifsDNaSDypVHC6ipAAeYfj+Wvf55018BgVHuHEHfoXOf7ggqfH+sg0Dlfn9LzL9i1Pj1lNMvZqLQ41Mt0X70+V2Z1A6gBijWaQVV79gcB9SwwFpBDVlBLZtAVQxQLbJIsYJavndQY2SN2kjUYSbo+c0SqMJIT/O/AuycFFo6wqGfzwbwzQ/EUh1AJeHbKQV4jeNRWqqn9eqpDzj89H1PVXwNylOl3ljzO4CaxAez3wqq8HrFgzNAPXYGlX8ynKBcvWtQxTPMpYdz9y9RmW/TAiqTtDluGxGoctQD/wrmOQaku80lkshqmR3iDGraiIu1I/VvrUWpvQvqAc0/PWAPKrpSc9+6s6ntQU0wkdoCqvB6k/wxdJKoFBcAWZK2T6FaQJ23ZG3Btst95hQqgZqyA5Vs6lZQ6ZbFr7Y2Km+6rt+nuB3mUZlmcAYVz+5YU3GEur/FnZr5c4BqCaMOfTP3jds8fwuo9OjSzAdqAXWYKbSc0Gu4wU20tBnUlB7IKaPeI+T2O4CaZE2PVKIiNGy7+wUVdUEom2gBlaxycSu2Xn8CshQ295rLUo8ctwM1YTyMNu1rG3fqzwGqJd6vMYH6621AhS4MJbhskYtSWLBP79CcSFZjEvyYPcZEggWVysImi3Hkcp0kqojIikQBt+0SDyJR2UsYsIJKbInucAxP5XRbM50UCQv8bNgS0Y+FugeV3Kk3HzR7UDM9DaplFj8SqC6zE06gkjPRIlHx46TEDKXFpeIhsrKYjVZO6koswd2JdAdQY8kYSlT9oxxjnB9z36AihCIaLIGKx4tucY6jJkVdS0LPnrA//PagrtH0kxaRWulVUDcIVOFMtQrUH9wG05xAZRHDFlBz5PVKv1ptVNGEj8tMtGE00ViE0KUzBSfuUx5Vh+Ve46hCeLaCim+wcHlkUI9Nf4UetzPOzN0RqPBk/9YSoeLeFIanRnstPNV0APVjae6bb166rU12BJUSJTErqMAvGGEtLpPsTEECJmEJr/IH3BqeCrQBVThfST3P/lnqUY2wRMoKasIOVFYJkFaU9gH/JDcapKoo3im3BnVq2kak9mocldbyEXHUilWgfvOD6wIaJ1Dn6QnGylZQsZuNhJKT15/Un18qy21TBtq+OTPlDKpRGSOu+ZlApRxvIj2c0M1qHVQKNiVsbjSgx+TQ6UyhLwlVe6a/IsGp38dUcFa22m8NKqhTEqmaDaiQ6x/pqZqUx7iKL0+hmn0pEKilb966HuzhKFF5bYYVVMTGqGNyAlVoUbnkujtQU+Vy6l5AxeuGyBoVgU65jiQgFU7reV/dTzyWC6fp7+RZDYnBtF6UExJx1HJKKkg3gSp9TbtQ6jSsimoRqRUdVN8npadUP6w5VbOJompztbmSe4FKeTt7UMmZaAGVikX0UyRQj03hKT3uYlRcugD1+NgANRC4J1BhvInZrJ6P6e9uylDgWWnQl6Drf+EB/ORYEm3qbEAMbIGrpnhcyjIUJfZ3/e+A2kY5eAwjXrKKW5FqiaXmWZlfBqunpnoH1GnF14x/sDFRh1CgHk11pfnSenbQBOp+zA7UrOGHtwn4JyRiU6bn61aihkSVffbz2qh0b8OJhFShPT+fMw/Eg86RxtvNy1XgothbfGYcZ1xEGR6WB/cpdzH9GIrU0xbdzwunj3pouixw+puscNqk+dUSCdQuJsqIUeYoTamT2LEMKiq5VlDThi/BYoMp3liRihBGMVYtACqcRmIkaITbcHtQeXnH7wkR+ErJQzj+xKNQP4NCxViqKePPdH+l1lvxqQ30pTioFoFaK/3UlTWNGSBmoolCC8METQqPWDL6c0a5BR+1oZc7z+vFweQysPLTZEgUQDPO5MF9CX1EmyIXTic5xKJlP1/h9J+0TU/hcFRzAXVeBFJHemUIkoLLooIvFR9oAbUBnJYGuxvWnU4yjALMzSZPNm3xtJIGm6CKJXstYDQ0QNNG1FAf/8tHC4tkKJS9JV8q8shhfll9JAq30/hQlJjw/o1xzR6oXKSa/ClRkNpTJf7X4EvFmdMva36tBqB2P0MWmmiJYckum7dumswyk4lmTKNgmTth3rggWGiSjbYvzbrSYdIUmLjB1RQt/QcqD1HJ/hTF/GksSu8YqWvKJ1hPoNbiSqHiL317vdZvT60PQcXxqBblL03p0ytG6vvp0WK8yEzUiqz4oY32yQx+fQ6qUP4Nqzv1IdNDkVSIohbjTWaiSgNQQJyWRvpkStS+B3V6Y/AflmCqNA51o1emnYwLE7UiK35og2vXHqh9qvwrIpI60iOzpL1XUPNfWQQqKv7X/aj4+xRUXpgqe/5C9/eK33+Amp+ZqIZAjZb6VfH3K6jK0RSukiKZqRVj4sn3vVE03Yw3meY33qbt16T4X3qg9pnyl2NU3O/P+NZ6YUK/MTuBOvSaPP4NxQNV6aNg6l9LYKZ+MMVScf2engilwhqT4ErFqRbVKO4DTn0jfTJlvweqaSoquTrFcKcOesSVwsqpvFSLgpxevp32QO2rNs2GpWQ+mjL+zJ16aOV6OfWpCaBiEFVX/FoJZqMAA3VK8UDtr7Y29bXP5FCB8sei1B5YaopZqB9kxT9QA8X/erBPDdS+BpWm9wNSjYo/HqGKP7S/cn05WGQC1ahGQYffN9qvBmp/g0qpVHCoZFLz5PgPHqz1hkDVOd3rd077GlSK+9egbE6TlP9V/KHTU0fKL8Vms4kuv+D0Kl563b8OvwcqPPm/ZoBUPZwKAfZK5oH9qbWNT5MgUE9NnMKgFMhIrXmg9nGQCkjN6KTy9JTv4Nn0w4WmfpxsFjMVg9NT4nTjup857XdQgdQRJLVmkAqzpT1kIhUVPzTwpISBelp8/bo40qeZUw9U3qZbSCV/6sGU/+XB4GSxOXllcLpXjCOnyrXigdrX7YiTquqkkvLfeBjP/5PyYwQUvxGY2i7G4x6nHqjgvAiZ2hAOFff8Pz0Ip79EQPE/snD6dQ+NjvVAfcjFHDOlWibT0INUb8hM/fQA0v0FGqhDjNMgDDklTo+UKcUD1WtEagZIHRKkopn6AEuiQxUqYBo55fI0rGaIU2XN49QDVeET5xGpYnCKcKjut+Bv6npwMlKMQEqKcdqIw/C+4qhysOY9IQ9UQerXvkwpkxETUjKHavBeTcPLZ+BIFSMnnFMIS0HcHzh94XHqgSppfyA1Y7hU3PW/R2d77b0yAZxCpJ+Zp9vFJnA6qHzyHo4HqiKX/P9zJINC9VQidWRj+r7Mw+lPgtMgN0+bzeLkYE/Nge2B2gttag0N1Yyu/meI1PsKYMqcBkntN4vFHwf7c8SpB2qHahBl0IeknjQkUr++lxTV2hhwWgBOkdJwtDaJnI4qXvjUA9XBpRohoXqFQjU4M4T1/hv3INWu/zdx+oY49X8ESIuToPbHPDfKA9XBUGXqP04+VTA8kImj7/+57cRnCnF6NePX/GFtG3NTxR/fe+apB2p79R8XQlXza28YqW2K/nIpWIyOLxOahc0UW0E0nfqdTZ48D/tjyYTSLm86NhGJRE7DQfjOahM4jRR/8dS+B6rSPk41xYQqjk/VsGgZF0pznudnGKYBh+WFcE5wWLSFNtPKfjJQ5mvT5GD5FlgGrpxqI8bHxiOR+FAYxKl6guI08uML5b2n9j1Q29uLa1yoxrfJqfoI6h+qQZ24ycKCoPO5bDmGs+CnYOmMJMxZn4vFsjG+fFEZpw9PhGKKY970CYjTEw0sDW2vgOJ0EsTpC+9BeKAqHYenvhzNEKpXURyp/AHy7ddOijhZ/pkmto/hZPe4DubPuLhCDgnmoGZhhYbhQGDeSZ4+WYwUKHh72owUipHCxCfl2aX3FDxQ3QnVESI1c6qRUG06lvynYHmE+X0d1Hkik4naBJs8P8cWeJp3kKdjkUgmSl8SKRQKkfExT5x6oHZhqSqjPh3V8Haxw2SPkkS1gErLLaTJNLB3pEDxq2F/IxMBTiORJ0fKmCdOPVBdt6kD5Wuu/zOnjZP206fAovOo4B1ATcPyTuVAug2oewLTiRdK/86F4oGq3DSmOjiCqILbj0WhTlHNY1izuBzIDjtK1BysVBcLZJ1CqGCiRjimY4oXO/VA7bpNf89Qhdb0DV46uP0QfgrFKHbqqPrZPofllq6nJojUyPgTxdP6Hqg3apdHiKrPNzLqPGF6qhzT1wu3gMriqLDg2P4xrBuac5oKVXkyMT4+AZgeeCF+D9Sb+v8H+ioljqAayzBbvP4UC0/hAqLOoJoSqV7zQL1pO3h/qUy1SRMBqPO5/f19WvYW0KSAP/zYB1D3cyLgnw60AXXsSJl+P+Z1tQfq52y4BjgtPJvD1ZZjMZZCjdFazri8LaVQ4dOs11UeqA/ZEny95OQxQAsrNLMFnJN8EWUUsbiCcizl9dTt2v8HNVYUKS3Z/U8AAAAASUVORK5CYII="
+           alt="Konya Gıda ve Tarım Üniversitesi" width="680" height="192">
+      <div class="baslik">
+        <h1>
+          <span class="i-tr">Bilgisayar Mühendisliği<br>Oryantasyon Rehberi</span>
+          <span class="i-en">Computer Engineering<br>Orientation Guide</span>
+        </h1>
+        <p class="alt">
+          <span class="i-tr">2026-2027 Güz Yarıyılı · Yeni öğrenciler için</span>
+          <span class="i-en">2026-2027 Fall Semester · For new students</span>
+        </p>
+        <span class="rozet">
+          <span class="i-tr">Oryantasyon: 24 Eylül 2026</span>
+          <span class="i-en">Orientation: 24 September 2026</span>
+        </span>
+      </div>
+    </div>
+    <div class="dil" role="group" aria-label="Dil / Language">
+      <button type="button" id="btnTr" aria-pressed="true" lang="tr">Türkçe</button>
+      <button type="button" id="btnEn" aria-pressed="false" lang="en">English</button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Bölümler / Sections">
+  <ul>
+    <li><a href="#hosgeldin"><span class="i-tr">Hoş Geldin</span><span class="i-en">Welcome</span></a></li>
+    <li><a href="#bolum"><span class="i-tr">Bölüm &amp; Program</span><span class="i-en">Department &amp; Program</span></a></li>
+    <li><a href="#akademik"><span class="i-tr">Akademik Sistem</span><span class="i-en">Academic System</span></a></li>
+    <li><a href="#mezuniyet"><span class="i-tr">Mezuniyet</span><span class="i-en">Graduation</span></a></li>
+    <li><a href="#kampus"><span class="i-tr">Kampüs</span><span class="i-en">Campus</span></a></li>
+    <li><a href="#takvim"><span class="i-tr">Takvim</span><span class="i-en">Calendar</span></a></li>
+    <li><a href="#sss"><span class="i-tr">SSS</span><span class="i-en">FAQ</span></a></li>
+    <li><a href="#geribildirim"><span class="i-tr">Geri Bildirim</span><span class="i-en">Feedback</span></a></li>
+  </ul>
+</nav>
+
+<main id="ana" class="wrap">
+
+<!-- ═══════════════ 1 · HOŞ GELDİN ═══════════════ -->
+<section id="hosgeldin" aria-labelledby="h-hosgeldin">
+  <h2 id="h-hosgeldin"><span class="no">01</span><span class="i-tr">Hoş Geldin</span><span class="i-en">Welcome</span></h2>
+
+  <p class="i-tr">Konya Gıda ve Tarım Üniversitesi Bilgisayar Mühendisliği Bölümü'ne hoş geldin.
+  Önündeki dört yıl boyunca yazılım, donanım, veri ve yapay zekâ alanlarında sağlam bir temel kuracak,
+  öğrendiklerini gerçek problemlere uygulayacaksın. Bu rehber, ilk dönemini rahat geçirmen için
+  bilmen gereken kuralları, tarihleri ve sistemleri tek sayfada topluyor — dönem boyunca açık tutabilirsin.</p>
+  <p class="i-en">Welcome to the Department of Computer Engineering at Konya Food and Agriculture University.
+  Over the next four years you will build a solid foundation in software, hardware, data and artificial
+  intelligence, and apply what you learn to real problems. This guide gathers the rules, dates and systems
+  you need for a smooth first semester on a single page — keep it open all term.</p>
+
+  <div class="onemli">
+    <p class="i-tr"><strong>Vizyonumuz —</strong> Bilişim teknolojileri alanında öncü, sürdürülebilir
+    teknolojiler geliştiren, küresel rekabet gücüne sahip ve etik değerlere bağlı mühendisler yetiştiren
+    saygın bir bölüm olmak.</p>
+    <p class="i-en"><strong>Our vision —</strong> To be a respected department that leads in information
+    technologies, develops sustainable technologies, and educates globally competitive engineers
+    committed to ethical values.</p>
+  </div>
+
+  <details>
+    <summary>
+      <span class="i-tr">Bölümün resmî misyon ve vizyon metni</span>
+      <span class="i-en">The department's official mission and vision statement</span>
+    </summary>
+    <div>
+      <div class="i-tr">
+        <h3 class="ufak">Misyon</h3>
+        <p>Bilgisayar mühendisliği alanında çağdaş bilgi ve teknolojileri kullanarak, sürdürülebilir yaşamı
+        destekleyen yenilikçi çözümler geliştiren, bilimsel araştırmalar ve eğitim yoluyla topluma hizmet
+        etmeyi amaçlayan mühendisler yetiştirmek. Disiplinler arası çalışmalara açık, etik değerlere bağlı,
+        hesap verebilir ve kaynakları verimli kullanan bireyler yetiştirerek, ulusal ve uluslararası düzeyde
+        katma değer sağlayan projeler üretmek. Aynı zamanda, dijital dönüşüm, yapay zekâ ve büyük veri gibi
+        öncü teknolojilerde araştırmalar yaparak, toplumsal ve endüstriyel ihtiyaçlara yönelik yenilikçi
+        çözümler sunmak.</p>
+        <h3 class="ufak">Vizyon</h3>
+        <p>Yeni nesil eğitim anlayışıyla bilişim teknolojileri alanında öncü, araştırma ve geliştirme
+        faaliyetleriyle dünyada örnek gösterilen, disiplinler arası iş birlikleriyle fark yaratan,
+        sürdürülebilir teknolojiler geliştiren saygın bir mühendislik bölümü olmak. Bilgisayar mühendisliği
+        alanında küresel rekabet gücüne sahip, inovatif ve etik değerlere bağlı mühendisler yetiştirerek,
+        akademik ve sektörel iş birlikleriyle bilime ve teknolojiye yön veren bir merkez hâline gelmek.</p>
+      </div>
+      <div class="i-en">
+        <h3 class="ufak">Mission</h3>
+        <p>To educate engineers who use contemporary knowledge and technology in computer engineering to
+        develop innovative solutions supporting sustainable life, and who aim to serve society through
+        scientific research and education. To produce projects that add value nationally and internationally
+        by raising individuals who are open to interdisciplinary work, committed to ethical values,
+        accountable, and efficient in their use of resources. At the same time, to conduct research in
+        pioneering technologies such as digital transformation, artificial intelligence and big data, and
+        to offer innovative solutions for societal and industrial needs.</p>
+        <h3 class="ufak">Vision</h3>
+        <p>To be a respected engineering department that leads in information technologies with a
+        new-generation approach to education, that is held up as an example worldwide for its research and
+        development activities, that makes a difference through interdisciplinary collaboration, and that
+        develops sustainable technologies. To become a centre that shapes science and technology through
+        academic and industrial partnerships, by educating globally competitive, innovative engineers
+        committed to ethical values.</p>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════ 2 · BÖLÜM VE PROGRAM ═══════════════ -->
+<section id="bolum" aria-labelledby="h-bolum">
+  <h2 id="h-bolum"><span class="no">02</span><span class="i-tr">Bölüm ve Program Bilgisi</span><span class="i-en">Department &amp; Program</span></h2>
+  <p class="giris">
+    <span class="i-tr">Akademik kadro, müfredat yapısı ve ders ekle-bırak süreci.</span>
+    <span class="i-en">Academic staff, curriculum structure and the add/drop process.</span>
+  </p>
+
+  <h3><span class="i-tr">Akademik Kadro</span><span class="i-en">Academic Staff</span></h3>
+  <div class="tsar">
+    <table class="kadro">
+      <caption>
+        <span class="i-tr">Bilgisayar Mühendisliği Bölümü öğretim elemanları</span>
+        <span class="i-en">Faculty members of the Department of Computer Engineering</span>
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col"><span class="i-tr">Unvan</span><span class="i-en">Title</span></th>
+          <th scope="col"><span class="i-tr">Ad Soyad</span><span class="i-en">Name</span></th>
+          <th scope="col"><span class="i-tr">E-posta</span><span class="i-en">E-mail</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="vurgu">
+          <td>Prof. Dr.</td>
+          <td><strong>Kasım Öztoprak</strong><span class="bsk"><span class="i-tr">Bölüm Başkanı</span><span class="i-en">Head</span></span></td>
+          <td><a href="mailto:kasim.oztoprak@gidatarim.edu.tr">kasim.oztoprak@gidatarim.edu.tr</a></td>
+        </tr>
+        <tr><td>Prof. Dr.</td><td>Reza Zare Hassanpour</td><td><a href="mailto:reza.hassanpour@gidatarim.edu.tr">reza.hassanpour@gidatarim.edu.tr</a></td></tr>
+        <tr><td>Prof. Dr.</td><td>Fahir Talay Akyıldız</td><td><a href="mailto:fahir.akyildiz@gidatarim.edu.tr">fahir.akyildiz@gidatarim.edu.tr</a></td></tr>
+        <tr><td>Prof. Dr.</td><td>Meltem Huri Baturay Khan</td><td><a href="mailto:meltem.baturay@gidatarim.edu.tr">meltem.baturay@gidatarim.edu.tr</a></td></tr>
+        <tr><td>Prof. Dr.</td><td>Şenol Zafer Erdoğan</td><td><a href="mailto:senol.erdogan@gidatarim.edu.tr">senol.erdogan@gidatarim.edu.tr</a></td></tr>
+        <tr><td>Dr. Öğr. Üyesi</td><td>Metin Burak Altınoklu</td><td><a href="mailto:burak.altinoklu@gidatarim.edu.tr">burak.altinoklu@gidatarim.edu.tr</a></td></tr>
+        <tr><td>Dr. Öğr. Üyesi</td><td>Ayşe Gül Özkan</td><td><a href="mailto:aysegul.ozkan@gidatarim.edu.tr">aysegul.ozkan@gidatarim.edu.tr</a></td></tr>
+        <tr><td>Dr. Öğr. Üyesi</td><td>Yusuf Kürşat Tuncel</td><td><a href="mailto:yusuf.tuncel@gidatarim.edu.tr">yusuf.tuncel@gidatarim.edu.tr</a></td></tr>
+        <tr><td>Öğr. Gör.</td><td>Elif Uysal</td><td><a href="mailto:elif.uysal@gidatarim.edu.tr">elif.uysal@gidatarim.edu.tr</a></td></tr>
+        <!-- TODO: kurumsal e-posta adresi teyit edilip aşağıdaki mailto ve metin güncellenecek -->
+        <tr><td>Arş. Gör.</td><td>Oktay Melih Gül</td><td><a href="mailto:EPOSTA_DOLDURULACAK@gidatarim.edu.tr">EPOSTA_DOLDURULACAK@gidatarim.edu.tr</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="kaynak">
+    <span class="i-tr">Güncel liste: <a href="https://www.gidatarim.edu.tr/tr/mmf/ceng/akademik-personel">gidatarim.edu.tr → MMF → Bilgisayar Mühendisliği → Akademik Personel</a></span>
+    <span class="i-en">Up-to-date list: <a href="https://www.gidatarim.edu.tr/tr/mmf/ceng/akademik-personel">gidatarim.edu.tr → Faculty of Engineering → Computer Engineering → Academic Staff</a></span>
+  </p>
+
+  <h3><span class="i-tr">Müfredat Yapısı</span><span class="i-en">Curriculum Structure</span></h3>
+
+  <div class="sayilar">
+    <div class="sayi"><b>240</b><span><span class="i-tr">toplam AKTS</span><span class="i-en">total ECTS</span></span></div>
+    <div class="sayi"><b>8</b><span><span class="i-tr">yarıyıl (4 yıl)</span><span class="i-en">semesters (4 years)</span></span></div>
+    <div class="sayi"><b>30</b><span><span class="i-tr">AKTS / yarıyıl</span><span class="i-en">ECTS per semester</span></span></div>
+    <div class="sayi"><b>183 / 57</b><span><span class="i-tr">zorunlu / seçmeli AKTS</span><span class="i-en">required / elective ECTS</span></span></div>
+  </div>
+
+  <p class="i-tr">Programın öğretim dili <strong>%100 İngilizce</strong>dir; ders adları müfredatta ve OBS'de
+  İngilizce görünür. Aşağıda birinci sınıfın iki yarıyılı tam olarak, üst sınıflar ise özet hâlinde verilmiştir.</p>
+  <p class="i-en">The language of instruction is <strong>100% English</strong>; course titles appear in English in
+  the curriculum and in OBS. Both first-year semesters are listed in full below; upper years are summarised.</p>
+
+  <div class="tsar">
+    <table>
+      <caption><span class="i-tr">1. Yarıyıl (Güz) — 30 AKTS</span><span class="i-en">Semester 1 (Fall) — 30 ECTS</span></caption>
+      <thead>
+        <tr>
+          <th scope="col"><span class="i-tr">Kod</span><span class="i-en">Code</span></th>
+          <th scope="col"><span class="i-tr">Ders</span><span class="i-en">Course</span></th>
+          <th scope="col" class="num">T</th><th scope="col" class="num">U</th><th scope="col" class="num">AKTS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="kod">COMP 1001</td><td>Introduction to Programming</td><td class="num">3</td><td class="num">2</td><td class="num">4</td></tr>
+        <tr><td class="kod">COMP 1003</td><td>Introduction to Computer Engineering Concepts</td><td class="num">2</td><td class="num">0</td><td class="num">2</td></tr>
+        <tr><td class="kod">COMP 1005</td><td>Ethics in Computer Science</td><td class="num">3</td><td class="num">0</td><td class="num">3</td></tr>
+        <tr><td class="kod">FLED 1001</td><td>Advanced English</td><td class="num">3</td><td class="num">0</td><td class="num">4</td></tr>
+        <tr><td class="kod">UNIV 1005</td><td>Calculus I</td><td class="num">4</td><td class="num">0</td><td class="num">6</td></tr>
+        <tr><td class="kod">UNIV 1015</td><td>Turkish Language &amp; Literature I</td><td class="num">2</td><td class="num">0</td><td class="num">2</td></tr>
+        <tr><td class="kod">UNIV 1017</td><td>Occupational Health &amp; Safety</td><td class="num">2</td><td class="num">0</td><td class="num">3</td></tr>
+        <tr><td class="kod">UNIV 1019</td><td>Physics I</td><td class="num">3</td><td class="num">2</td><td class="num">6</td></tr>
+        <tr class="vurgu"><td colspan="4"><strong><span class="i-tr">Toplam</span><span class="i-en">Total</span></strong></td><td class="num"><strong>30</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tsar">
+    <table>
+      <caption><span class="i-tr">2. Yarıyıl (Bahar) — 30 AKTS</span><span class="i-en">Semester 2 (Spring) — 30 ECTS</span></caption>
+      <thead>
+        <tr>
+          <th scope="col"><span class="i-tr">Kod</span><span class="i-en">Code</span></th>
+          <th scope="col"><span class="i-tr">Ders</span><span class="i-en">Course</span></th>
+          <th scope="col" class="num">T</th><th scope="col" class="num">U</th><th scope="col" class="num">AKTS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="kod">COMP 1002</td><td>Advanced Python</td><td class="num">3</td><td class="num">2</td><td class="num">6</td></tr>
+        <tr><td class="kod">FLED 1002</td><td>Academic English</td><td class="num">3</td><td class="num">0</td><td class="num">4</td></tr>
+        <tr><td class="kod">UNIV 1006</td><td>Calculus II</td><td class="num">4</td><td class="num">0</td><td class="num">6</td></tr>
+        <tr><td class="kod">UNIV 1016</td><td>Turkish Language &amp; Literature II</td><td class="num">2</td><td class="num">0</td><td class="num">2</td></tr>
+        <tr><td class="kod">UNIV 1020</td><td>Physics II</td><td class="num">2</td><td class="num">2</td><td class="num">6</td></tr>
+        <tr><td class="kod">UNIV 1024</td><td>Career Planning</td><td class="num">2</td><td class="num">0</td><td class="num">2</td></tr>
+        <tr><td class="kod">UNIV 2014</td><td>Linear Algebra</td><td class="num">3</td><td class="num">0</td><td class="num">4</td></tr>
+        <tr class="vurgu"><td colspan="4"><strong><span class="i-tr">Toplam</span><span class="i-en">Total</span></strong></td><td class="num"><strong>30</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tsar">
+    <table>
+      <caption><span class="i-tr">3.–8. Yarıyıl — özet</span><span class="i-en">Semesters 3–8 — summary</span></caption>
+      <thead>
+        <tr>
+          <th scope="col"><span class="i-tr">Yarıyıl</span><span class="i-en">Semester</span></th>
+          <th scope="col"><span class="i-tr">Yapı</span><span class="i-en">Structure</span></th>
+          <th scope="col" class="num">AKTS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">3</td>
+          <td><span class="i-tr">6 zorunlu ders</span><span class="i-en">6 required courses</span></td><td class="num">30</td></tr>
+        <tr><td class="num">4</td>
+          <td><span class="i-tr">7 zorunlu ders + 1 sosyal seçmeli (2 AKTS)</span><span class="i-en">7 required courses + 1 social elective (2 ECTS)</span></td><td class="num">30</td></tr>
+        <tr><td class="num">5</td>
+          <td><span class="i-tr">4 zorunlu ders + 2 seçmeli (5'er AKTS)</span><span class="i-en">4 required courses + 2 electives (5 ECTS each)</span></td><td class="num">30</td></tr>
+        <tr><td class="num">6</td>
+          <td><span class="i-tr">4 zorunlu ders + 2 seçmeli + 1 sosyal seçmeli</span><span class="i-en">4 required courses + 2 electives + 1 social elective</span></td><td class="num">30</td></tr>
+        <tr><td class="num">7</td>
+          <td><span class="i-tr">2 zorunlu ders + 4 seçmeli (5'er AKTS)</span><span class="i-en">2 required courses + 4 electives (5 ECTS each)</span></td><td class="num">30</td></tr>
+        <tr><td class="num">8</td>
+          <td><span class="i-tr">2 zorunlu ders + 4 seçmeli (5'er AKTS)</span><span class="i-en">2 required courses + 4 electives (5 ECTS each)</span></td><td class="num">30</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="not">
+    <p class="i-tr">Seçmeli dersler 3. sınıfta başlar. Her seçmeli ders <strong>5 AKTS</strong>, her sosyal
+    seçmeli <strong>2 AKTS</strong>'tir. Havuz her yıl güncellendiği için buraya liste koymuyoruz —
+    güncel seçmeli listesini ve tüm ders içeriklerini
+    <a href="https://obs.gidatarim.edu.tr/oibs/bologna">Bologna Bilgi Paketi</a>'nden görebilirsin.</p>
+    <p class="i-en">Electives start in the third year. Each elective is <strong>5 ECTS</strong> and each social
+    elective is <strong>2 ECTS</strong>. The pool changes every year, so no list is given here — see the
+    current electives and all course descriptions in the
+    <a href="https://obs.gidatarim.edu.tr/oibs/bologna">Bologna Information Package</a>.</p>
+  </div>
+
+  <h3><span class="i-tr">Ders Ekleme-Bırakma (Ekle-Sil)</span><span class="i-en">Course Add/Drop</span></h3>
+
+  <div class="onemli">
+    <p class="i-tr"><strong>Birinci yarıyılda ders yükünü değiştiremezsin.</strong> Yönetmelik gereği ilk
+    yarıyılda müfredatta belirtilen ders yükü değiştirilemez (Md. 26/4) ve senin için tek bir kesinleşmiş
+    program vardır. Yani ekle-sil döneminde pratikte yalnızca <strong>grup/şube değişikliği</strong>
+    söz konusu olabilir; ders ekleyip çıkarman gerekmez. Süreci yine de bil — ikinci yarıyıldan itibaren
+    kullanacaksın.</p>
+    <p class="i-en"><strong>You cannot change your course load in the first semester.</strong> Under the
+    regulation the course load specified in the curriculum cannot be changed in the first semester
+    (Art. 26/4), and you have a single fixed programme. In practice the add/drop window can therefore only
+    mean a <strong>section/group change</strong> for you; you do not need to add or remove courses. Still,
+    learn the process — you will use it from the second semester onwards.</p>
+  </div>
+
+  <ol class="adim">
+    <li><span class="i-tr">Yarıyıl ders kaydının tamamlanmış olması gerekir.</span><span class="i-en">Your semester course registration must already be complete.</span></li>
+    <li><span class="i-tr">Akademik takvimdeki tarihlerde <a href="https://obs.gidatarim.edu.tr/">OBS</a>'ye gir.</span><span class="i-en">Log in to <a href="https://obs.gidatarim.edu.tr/">OBS</a> during the dates in the academic calendar.</span></li>
+    <li><span class="i-tr">Ders ekle, bırak veya grup değiştir.</span><span class="i-en">Add or drop a course, or change your section.</span></li>
+    <li><span class="i-tr"><strong>"Kesinleştir" butonuna bas.</strong> Bunu yapmazsan değişiklik danışmanına düşmez.</span><span class="i-en"><strong>Press "Confirm" (Kesinleştir).</strong> Without this your changes never reach your advisor.</span></li>
+    <li><span class="i-tr">Danışmanın onaylar. Onay olmadan değişiklik geçerli değildir.</span><span class="i-en">Your advisor approves. Changes are not valid without approval.</span></li>
+    <li><span class="i-tr">Onaydan sonra OBS'den ders listeni kontrol et.</span><span class="i-en">After approval, check your course list in OBS.</span></li>
+  </ol>
+
+  <p class="i-tr"><strong>2026-2027 Güz tarihleri:</strong> Ekle-bırak <strong>21-25 Eylül 2026</strong>,
+  danışman onayları <strong>27 Eylül 2026</strong>'ya kadar.
+  <span class="kaynak">Kaynak: KGTÜ Ön Lisans ve Lisans Eğitim-Öğretim Yönetmeliği Md. 17 ve 2026-2027 Akademik Takvim</span></p>
+  <p class="i-en"><strong>2026-2027 Fall dates:</strong> Add/drop <strong>21-25 September 2026</strong>,
+  advisor approvals until <strong>27 September 2026</strong>.
+  <span class="kaynak">Source: KGTÜ Associate &amp; Undergraduate Education Regulation Art. 17 and the 2026-2027 Academic Calendar</span></p>
+</section>
+
+<!-- ═══════════════ 3 · AKADEMİK SİSTEM ═══════════════ -->
+<section id="akademik" aria-labelledby="h-akademik">
+  <h2 id="h-akademik"><span class="no">03</span><span class="i-tr">Akademik Sistem</span><span class="i-en">Academic System</span></h2>
+  <p class="giris">
+    <span class="i-tr">Sınavlar, notlandırma, ortalama barajı ve devam zorunluluğu.</span>
+    <span class="i-en">Exams, grading, GPA threshold and attendance requirements.</span>
+  </p>
+
+  <h3><span class="i-tr">Sınav Sistemi</span><span class="i-en">Examination System</span></h3>
+
+  <div class="izgara">
+    <div class="kart">
+      <h3><span class="i-tr">Vize (Ara Sınav) ve Final</span><span class="i-en">Midterm &amp; Final</span></h3>
+      <p class="i-tr">Her derste en az bir dönem içi (vize, ödev, sunum) ve en az bir dönem sonu (final)
+      değerlendirmesi yapılır. <strong>Vize ve finalin yüzde ağırlığı derse göre değişir</strong> —
+      oranı dersi veren öğretim elemanı belirler ve dönem başında <strong>ders izlencesinde</strong>
+      ilan eder. Her dersin izlencesini ilk hafta mutlaka oku.</p>
+      <p class="i-en">Every course has at least one in-term assessment (midterm, assignment, presentation)
+      and at least one end-of-term assessment (final). <strong>The weighting of midterm and final varies by
+      course</strong> — the instructor sets it and announces it in the <strong>course syllabus</strong> at
+      the start of the semester. Read every syllabus in the first week.</p>
+      <span class="kaynak">Md. / Art. 31(3), 31(4), 31(5)</span>
+    </div>
+
+    <div class="kart">
+      <h3><span class="i-tr">Bütünleme</span><span class="i-en">Resit Exam</span></h3>
+      <p class="i-tr">Yarıyıl sonunda <strong>F</strong> aldığın derslerden girersin. Bütünlemede aldığın not,
+      o dersin <strong>final notunun yerine geçer</strong>. Koşullu geçtiğin (C-, D) derslerin bütünlemesine
+      de istersen girebilirsin. Bu hak bir sonraki yarıyıla devredilmez.</p>
+      <p class="i-en">You take it for courses where you received <strong>F</strong> at the end of the semester.
+      The resit grade <strong>replaces the final exam grade</strong>. You may also sit the resit for courses
+      you passed conditionally (C-, D). This right cannot be carried to the next semester.</p>
+      <span class="kaynak">Md. / Art. 31(12)</span>
+    </div>
+
+    <div class="kart">
+      <h3><span class="i-tr">Mazeret Sınavı</span><span class="i-en">Make-up Exam</span></h3>
+      <p class="i-tr">Mazeret sınavı <strong>yalnızca ara sınav (vize) için</strong> vardır. Geçerli bir
+      nedenle vizeye giremeyen öğrenciye mazeret sınavı yapılır; tarihini dersin öğretim elemanı belirler.
+      <strong>Final ve bütünleme sınavının mazereti yoktur.</strong> Mazeret sınavının da mazereti olmaz —
+      girmezsen hakkını kullanmış sayılırsın.</p>
+      <p class="i-en">A make-up exam exists <strong>only for the midterm</strong>. Students who miss a midterm
+      for a valid reason are given one; the instructor sets the date.
+      <strong>There is no make-up for the final or the resit.</strong> There is no make-up for the make-up —
+      if you miss it, the right is considered used.</p>
+      <span class="kaynak">Md. / Art. 31(13)</span>
+    </div>
+  </div>
+
+  <h3><span class="i-tr">Notlandırma</span><span class="i-en">Grading</span></h3>
+
+  <div class="tsar">
+    <table>
+      <caption><span class="i-tr">Harf notu karşılıkları</span><span class="i-en">Letter grade scale</span></caption>
+      <thead>
+        <tr>
+          <th scope="col"><span class="i-tr">Harf</span><span class="i-en">Letter</span></th>
+          <th scope="col" class="num"><span class="i-tr">Katsayı</span><span class="i-en">Coefficient</span></th>
+          <th scope="col" class="num"><span class="i-tr">Puan</span><span class="i-en">Score</span></th>
+          <th scope="col"><span class="i-tr">Durum</span><span class="i-en">Status</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">A</th><td class="num">4,00</td><td class="num">90-100</td><td><span class="i-tr">Geçer</span><span class="i-en">Pass</span></td></tr>
+        <tr><th scope="row">A-</th><td class="num">3,70</td><td class="num">85-89</td><td><span class="i-tr">Geçer</span><span class="i-en">Pass</span></td></tr>
+        <tr><th scope="row">B+</th><td class="num">3,30</td><td class="num">80-84</td><td><span class="i-tr">Geçer</span><span class="i-en">Pass</span></td></tr>
+        <tr><th scope="row">B</th><td class="num">3,00</td><td class="num">75-79</td><td><span class="i-tr">Geçer</span><span class="i-en">Pass</span></td></tr>
+        <tr><th scope="row">B-</th><td class="num">2,70</td><td class="num">70-74</td><td><span class="i-tr">Geçer</span><span class="i-en">Pass</span></td></tr>
+        <tr><th scope="row">C+</th><td class="num">2,30</td><td class="num">65-69</td><td><span class="i-tr">Geçer</span><span class="i-en">Pass</span></td></tr>
+        <tr><th scope="row">C</th><td class="num">2,00</td><td class="num">60-64</td><td><span class="i-tr">Geçer</span><span class="i-en">Pass</span></td></tr>
+        <tr class="vurgu"><th scope="row">C-</th><td class="num">1,70</td><td class="num">55-59</td><td><strong><span class="i-tr">Koşullu geçer</span><span class="i-en">Conditional pass</span></strong></td></tr>
+        <tr class="vurgu"><th scope="row">D</th><td class="num">1,30</td><td class="num">50-54</td><td><strong><span class="i-tr">Koşullu geçer</span><span class="i-en">Conditional pass</span></strong></td></tr>
+        <tr><th scope="row">F</th><td class="num">0,00</td><td class="num">0-49</td><td><span class="i-tr">Başarısız</span><span class="i-en">Fail</span></td></tr>
+        <tr><th scope="row">NA</th><td class="num">0,00</td><td class="num">—</td><td><span class="i-tr">Devamsız — ortalamada F sayılır</span><span class="i-en">Absent — counts as F in the GPA</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="onemli">
+    <p class="i-tr"><strong>"Koşullu geçer" ne demek?</strong> C- veya D aldığın bir dersten başarılı
+    sayılman için <strong>o yarıyılın not ortalamasının en az 2,00 olması</strong> gerekir. Ortalaman 2,00'ın
+    altında kalırsa, koşullu geçtiğin dersler <strong>başarısız</strong> kabul edilir ve tekrar etmen gerekir.</p>
+    <p class="i-en"><strong>What does "conditional pass" mean?</strong> For a C- or D to count as a pass,
+    <strong>your semester GPA must be at least 2.00</strong>. If it falls below 2.00, courses passed
+    conditionally are treated as <strong>failed</strong> and must be repeated.</p>
+    <span class="kaynak">Md. / Art. 33(4), 35(1)-(3)</span>
+  </div>
+
+  <h3><span class="i-tr">Ortalama (GNO / CGPA) Barajı</span><span class="i-en">GPA (CGPA) Threshold</span></h3>
+
+  <div class="izgara">
+    <div class="kart">
+      <h3><span class="i-tr">Geçme barajı: <span style="color:var(--bordo)">2,00</span></span><span class="i-en">Threshold: <span style="color:var(--bordo)">2.00</span></span></h3>
+      <p class="i-tr">Ayakta kalman gereken sınır. Herhangi bir yarıyıl sonunda genel not ortalaman
+      <strong>2,00'ın altına düşerse</strong>, takip eden yarıyıl boyunca <strong>"başarısız öğrenci"</strong>
+      sayılırsın. Bu durumda tekrar alman gereken derslere ek olarak, normal kredi yükünü aşmayacak şekilde
+      yeni ders alabilirsin. Başarılı sayılman için takip eden yarıyılda ortalamanı en az 2,00'a çıkarman gerekir.</p>
+      <p class="i-en">The line you must stay above. If your cumulative GPA <strong>falls below 2.00</strong>
+      at the end of any semester, you are classified as a <strong>"failing student"</strong> for the following
+      semester. You may then take new courses in addition to your repeats, without exceeding the normal load.
+      To regain good standing you must raise your GPA to at least 2.00 in the following semester.</p>
+      <span class="kaynak">Md. / Art. 38</span>
+    </div>
+    <div class="kart">
+      <h3><span class="i-tr">Onur ve Yüksek Onur</span><span class="i-en">Honour &amp; High Honour</span></h3>
+      <p class="i-tr">Bir yarıyıldaki tüm derslerini alıp en az 30 AKTS'yi başaran, o yarıyılda başarısız notu
+      olmayan ve genel ortalaması en az 2,00 olan öğrencilerden yarıyıl ortalaması
+      <strong>3,00-3,49</strong> olanlar <strong>onur</strong>, <strong>3,50 ve üzeri</strong> olanlar
+      <strong>yüksek onur</strong> öğrencisi sayılır.</p>
+      <p class="i-en">Students who take all their semester courses, pass at least 30 ECTS, have no failing
+      grade that semester and a cumulative GPA of at least 2.00 are <strong>honour</strong> students with a
+      semester GPA of <strong>3.00-3.49</strong>, and <strong>high honour</strong> students at
+      <strong>3.50 and above</strong>.</p>
+      <span class="kaynak">Md. / Art. 37(1)</span>
+    </div>
+    <div class="kart">
+      <h3><span class="i-tr">Ders Yükü</span><span class="i-en">Course Load</span></h3>
+      <p class="i-tr">Yarıyıl başına normal ders yükü <strong>en az 30, en fazla 40 AKTS</strong>'tir.
+      Genel ortalaması 2,00 ve üzerinde olan öğrenciler, danışman onayıyla ve 40 AKTS'yi aşmamak kaydıyla
+      yüklerini artırabilir. <strong>İlk yarıyılda ders yükü değiştirilemez.</strong></p>
+      <p class="i-en">The normal load is <strong>at least 30 and at most 40 ECTS</strong> per semester.
+      Students with a GPA of 2.00 or above may increase their load with advisor approval, without exceeding
+      40 ECTS. <strong>The load cannot be changed in the first semester.</strong></p>
+      <span class="kaynak">Md. / Art. 26(2), 26(4)</span>
+    </div>
+  </div>
+
+  <h3><span class="i-tr">Devamsızlık</span><span class="i-en">Attendance</span></h3>
+
+  <div class="sayilar">
+    <div class="sayi"><b>%70</b><span><span class="i-tr">teorik derslerde zorunlu devam</span><span class="i-en">required attendance, theory courses</span></span></div>
+    <div class="sayi"><b>%80</b><span><span class="i-tr">uygulamalı derslerde zorunlu devam</span><span class="i-en">required attendance, applied courses</span></span></div>
+  </div>
+
+  <p class="i-tr">Yarıyıl sonu sınavına girebilmek için devam yükümlülüğünü sağlamış olman gerekir.
+  Teorik derslere <strong>%70</strong>, uygulamalı derslere <strong>%80</strong> devam zorunludur.
+  Devam koşulunu sağlamayan öğrenci <strong>finale alınmaz</strong> ve o dersten <strong>NA</strong> notu alır;
+  NA notu ortalama hesabında F gibi işlem görür. Devamsızlık payı (en fazla %30 / %20) zorunlu durumlar
+  içindir — normalde derslere düzenli devam etmen beklenir.</p>
+  <p class="i-en">You must meet the attendance requirement to sit the final exam:
+  <strong>70%</strong> for theory courses and <strong>80%</strong> for applied courses. A student who fails
+  to meet it <strong>cannot sit the final</strong> and receives <strong>NA</strong> for that course;
+  NA counts as F in GPA calculations. The absence allowance (at most 30% / 20%) is meant for unavoidable
+  situations — regular attendance is expected.</p>
+  <span class="kaynak">Md. / Art. 31(2), 33(5)</span>
+
+  <h3><span class="i-tr">Dersten Çekilme</span><span class="i-en">Course Withdrawal</span></h3>
+  <div class="not">
+    <p class="i-tr"><strong>Birinci sınıfta dersten çekilemezsin.</strong> Yönetmeliğe göre müfredatın ilk iki
+    yarıyılındaki derslerden çekilme işlemi yapılamaz. Üst sınıflarda ise: ekle-bırak bittikten sonra
+    yarıyılın ilk yedi haftası içinde, danışman önerisi ve yönetim kurulu onayıyla, bir yarıyılda en fazla
+    <strong>1 ders</strong>, öğrenim boyunca en fazla <strong>2 ders</strong>. Çekilen derse <strong>W</strong>
+    notu verilir ve dersin tekrar alınması gerekir.</p>
+    <p class="i-en"><strong>You cannot withdraw from a course in the first year.</strong> The regulation does not
+    allow withdrawal from courses in the first two semesters of the curriculum. In later years: after the
+    add/drop period, within the first seven weeks of the semester, with advisor recommendation and executive
+    board approval — at most <strong>1 course</strong> per semester and <strong>2 courses</strong> in total.
+    A withdrawn course is graded <strong>W</strong> and must be retaken.</p>
+    <span class="kaynak">Md. / Art. 29(4)</span>
+  </div>
+</section>
+
+<!-- ═══════════════ 4 · MEZUNİYET ═══════════════ -->
+<section id="mezuniyet" aria-labelledby="h-mezuniyet">
+  <h2 id="h-mezuniyet"><span class="no">04</span><span class="i-tr">Mezuniyet Şartları</span><span class="i-en">Graduation Requirements</span></h2>
+  <p class="giris">
+    <span class="i-tr">Diploma alabilmen için sağlaman gereken koşulların tamamı.</span>
+    <span class="i-en">Everything you must satisfy to receive your diploma.</span>
+  </p>
+
+  <div class="sayilar">
+    <div class="sayi"><b>240</b><span><span class="i-tr">AKTS toplam kredi</span><span class="i-en">total ECTS credits</span></span></div>
+    <div class="sayi"><b>2,00</b><span><span class="i-tr">asgari genel not ortalaması</span><span class="i-en">minimum cumulative GPA</span></span></div>
+    <div class="sayi"><b>D</b><span><span class="i-tr">her dersten asgari harf notu</span><span class="i-en">minimum letter grade per course</span></span></div>
+  </div>
+
+  <ul>
+    <li class="i-tr">Müfredatta yer alan <strong>tüm derslerin</strong> en az <strong>D</strong> veya
+      <strong>S</strong> notuyla tamamlanmış olması.</li>
+    <li class="i-en">All <strong>curriculum courses</strong> completed with at least a <strong>D</strong> or
+      <strong>S</strong> grade.</li>
+
+    <li class="i-tr">Toplam <strong>en az 240 AKTS</strong> kredinin tamamlanmış olması.</li>
+    <li class="i-en">A total of <strong>at least 240 ECTS</strong> credits completed.</li>
+
+    <li class="i-tr"><strong>Genel not ortalamasının en az 2,00</strong> olması.</li>
+    <li class="i-en">A <strong>cumulative GPA of at least 2.00</strong>.</li>
+
+    <li class="i-tr">Müfredatın toplam kredisinin <strong>en az yarısının KGTÜ'de</strong> alınmış olması.</li>
+    <li class="i-en">At least <strong>half of the curriculum's total credits taken at KGTÜ</strong>.</li>
+
+    <li class="i-tr">Kayıtlı olunan <strong>son iki yarıyılın KGTÜ'de</strong> geçirilmiş olması.
+      <strong>Yurt dışındaki anlaşmalı kurumlarla yürütülen değişim programları (Erasmus vb.) ve
+      uluslararası ortak lisans programları bu şartın dışındadır.</strong></li>
+    <li class="i-en">The <strong>last two enrolled semesters spent at KGTÜ</strong>.
+      <strong>Exchange programmes run with partner institutions abroad (e.g. Erasmus) and international
+      joint degree programmes are exempt from this condition.</strong></li>
+  </ul>
+  <span class="kaynak">Md. / Art. 39(1), 39(3)</span>
+
+  <div class="not">
+    <p class="i-tr"><strong>Zorunlu ders listesi:</strong> Programın 183 AKTS'lik zorunlu dersleri ve
+    57 AKTS'lik seçmeli yükü yukarıdaki <a href="#bolum">müfredat tablolarında</a> özetlenmiştir.
+    Her dersin kazanımları, ön koşulları ve içeriği için
+    <a href="https://obs.gidatarim.edu.tr/oibs/bologna">Bologna Bilgi Paketi</a>'ne bak.</p>
+    <p class="i-en"><strong>Required course list:</strong> The programme's 183 ECTS of required courses and
+    57 ECTS of electives are summarised in the <a href="#bolum">curriculum tables</a> above. For learning
+    outcomes, prerequisites and content of each course see the
+    <a href="https://obs.gidatarim.edu.tr/oibs/bologna">Bologna Information Package</a>.</p>
+  </div>
+
+  <p class="i-tr">Lisans programında <strong>normal öğrenim süresi 8 yarıyıl, azami süre 14 yarıyıl</strong>dır.
+  Yaz okulunda geçen süreler bu hesaba dâhil değildir.
+  <span class="kaynak">Md. 23(1)</span></p>
+  <p class="i-en">The <strong>normal duration is 8 semesters and the maximum is 14 semesters</strong>.
+  Time spent in summer school is not included.
+  <span class="kaynak">Art. 23(1)</span></p>
+</section>
+
+<!-- ═══════════════ 5 · KAMPÜS HAYATI ═══════════════ -->
+<section id="kampus" aria-labelledby="h-kampus">
+  <h2 id="h-kampus"><span class="no">05</span><span class="i-tr">Kampüs Hayatı</span><span class="i-en">Campus Life</span></h2>
+  <p class="giris">
+    <span class="i-tr">Günlük hayatta kullanacağın sistemler ve hizmetler.</span>
+    <span class="i-en">The systems and services you will use day to day.</span>
+  </p>
+
+  <div class="izgara">
+    <div class="kart">
+      <h3>OBS — <span class="i-tr">Öğrenci Bilgi Sistemi</span><span class="i-en">Student Information System</span></h3>
+      <p class="i-tr">Ders kaydı, ekle-bırak, not takibi ve devamsızlık bilgilerinin tamamı burada.
+      <strong>Kullanıcı adın öğrenci numarandır.</strong> Şifreni giriş ekranındaki
+      <strong>"Şifremi Unuttum"</strong> bölümünden oluşturursun; sıfırlama bağlantısı
+      <strong>kurumsal e-posta adresine</strong> gönderilir. Giriş yaptıktan sonra şifreni değiştirip
+      bilgilerini güncellemen gerekir.</p>
+      <p class="i-en">Course registration, add/drop, grades and attendance all live here.
+      <strong>Your username is your student number.</strong> Create your password via
+      <strong>"Şifremi Unuttum" (Forgot my password)</strong> on the login screen; the reset link is sent to
+      your <strong>institutional e-mail address</strong>. After logging in, change your password and update
+      your details.</p>
+      <p><a href="https://obs.gidatarim.edu.tr/"><strong>obs.gidatarim.edu.tr</strong></a></p>
+    </div>
+
+    <div class="kart">
+      <h3><span class="i-tr">Kurumsal E-posta</span><span class="i-en">Institutional E-mail</span></h3>
+      <p class="i-tr">Öğrenci e-posta adreslerin <code>@ogr.gidatarim.edu.tr</code> uzantılıdır ve hazırlık
+      sürecinde tanımlanmıştır. Üniversiteyle ilgili tüm resmî yazışmalar bu adres üzerinden yürür —
+      OBS şifre sıfırlama ve Wi-Fi girişi dâhil. Düzenli kontrol et.</p>
+      <p class="i-en">Student e-mail addresses end with <code>@ogr.gidatarim.edu.tr</code> and were created
+      during the preparatory stage. All official correspondence goes through this address — including OBS
+      password resets and Wi-Fi login. Check it regularly.</p>
+      <p><a href="https://mail.gidatarim.edu.tr/"><strong>mail.gidatarim.edu.tr</strong></a></p>
+    </div>
+
+    <div class="kart">
+      <h3>Wi-Fi</h3>
+      <p class="i-tr">Ağ adı: <strong><code>KGTU</code></strong>. Girişte <strong>kurumsal e-posta adresini ve
+      şifreni</strong> kullanırsın.</p>
+      <p class="i-en">Network name: <strong><code>KGTU</code></strong>. Sign in with your
+      <strong>institutional e-mail address and password</strong>.</p>
+      <ul>
+        <li class="i-tr"><strong>Windows:</strong> ek işlem gerekmez.</li>
+        <li class="i-en"><strong>Windows:</strong> no extra steps needed.</li>
+        <li class="i-tr"><strong>Android:</strong> gelişmiş ayarlardan birkaç ayar yapman gerekir.</li>
+        <li class="i-en"><strong>Android:</strong> a few settings under advanced options are required.</li>
+        <li class="i-tr"><strong>iPhone:</strong> sertifika kurulumu gerekir.</li>
+        <li class="i-en"><strong>iPhone:</strong> a certificate must be installed.</li>
+      </ul>
+      <p class="i-tr">Cihazına göre adım adım rehberler:
+      <a href="https://www.gidatarim.edu.tr/tr/bilgiislem">Bilgi İşlem Daire Başkanlığı</a></p>
+      <p class="i-en">Step-by-step guides for each device:
+      <a href="https://www.gidatarim.edu.tr/tr/bilgiislem">IT Department</a></p>
+    </div>
+
+    <div class="kart">
+      <h3><span class="i-tr">Yemekhane</span><span class="i-en">Cafeteria</span></h3>
+      <p class="i-tr">Yemek <strong>rezervasyonla</strong> çalışır. Bir sonraki haftanın rezervasyonlarını
+      <strong>Cuma günü mesai bitimine kadar</strong> yaptırman gerekir. Haftalık menüyü de aynı siteden
+      görebilirsin.</p>
+      <p class="i-en">Meals work by <strong>reservation</strong>. You must book the following week's meals by
+      <strong>the end of business on Friday</strong>. The weekly menu is on the same site.</p>
+      <div class="tsar" style="margin-bottom:12px">
+        <table>
+          <tbody>
+            <tr><td><span class="i-tr">Rezervasyonlu</span><span class="i-en">With reservation</span></td><td class="num"><strong>175 TL</strong></td></tr>
+            <tr><td><span class="i-tr">Rezervasyonsuz</span><span class="i-en">Without reservation</span></td><td class="num"><strong>350 TL</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a href="https://kampuskart.gidatarim.edu.tr/"><strong>kampuskart.gidatarim.edu.tr</strong></a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 6 · AKADEMİK TAKVİM ═══════════════ -->
+<section id="takvim" aria-labelledby="h-takvim">
+  <h2 id="h-takvim"><span class="no">06</span><span class="i-tr">Akademik Takvim</span><span class="i-en">Academic Calendar</span></h2>
+  <p class="giris">
+    <span class="i-tr">2026-2027 Eğitim-Öğretim Yılı, Güz Yarıyılı.</span>
+    <span class="i-en">2026-2027 Academic Year, Fall Semester.</span>
+  </p>
+
+  <div class="tsar">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col"><span class="i-tr">İşlem</span><span class="i-en">Activity</span></th>
+          <th scope="col"><span class="i-tr">Tarih</span><span class="i-en">Date</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="i-tr">Kayıt yenileme ve ders kayıtları</span><span class="i-en">Registration renewal and course registration</span></td>
+            <td class="num"><span class="i-tr">7-11 Eylül 2026</span><span class="i-en">7-11 September 2026</span></td></tr>
+        <tr><td><span class="i-tr">Danışman onayları</span><span class="i-en">Advisor approvals</span></td>
+            <td class="num"><span class="i-tr">7-13 Eylül 2026</span><span class="i-en">7-13 September 2026</span></td></tr>
+        <tr><td><span class="i-tr">Muafiyet dilekçeleri (güz ve bahar için tek seferde)</span><span class="i-en">Exemption petitions (fall and spring, submitted at once)</span></td>
+            <td class="num"><span class="i-tr">7-18 Eylül 2026</span><span class="i-en">7-18 September 2026</span></td></tr>
+        <tr class="vurgu"><td><strong><span class="i-tr">Derslerin başlaması</span><span class="i-en">Classes begin</span></strong></td>
+            <td class="num"><strong><span class="i-tr">14 Eylül 2026</span><span class="i-en">14 September 2026</span></strong></td></tr>
+        <tr class="vurgu"><td><strong><span class="i-tr">Ders ekleme-bırakma</span><span class="i-en">Course add/drop</span></strong></td>
+            <td class="num"><strong><span class="i-tr">21-25 Eylül 2026</span><span class="i-en">21-25 September 2026</span></strong></td></tr>
+        <tr><td><span class="i-tr">Ekle-bırak danışman onayları</span><span class="i-en">Add/drop advisor approvals</span></td>
+            <td class="num"><span class="i-tr">21-27 Eylül 2026</span><span class="i-en">21-27 September 2026</span></td></tr>
+        <tr><td><span class="i-tr">Cumhuriyet Bayramı tatili</span><span class="i-en">Republic Day holiday</span></td>
+            <td class="num"><span class="i-tr">28 Ekim (yarım gün) - 29 Ekim 2026</span><span class="i-en">28 October (half day) - 29 October 2026</span></td></tr>
+        <tr><td><span class="i-tr">Dersten çekilme için son gün <span style="color:var(--gri)">(1. sınıfta kullanılamaz)</span></span><span class="i-en">Last day for course withdrawal <span style="color:var(--gri)">(not available in the first year)</span></span></td>
+            <td class="num"><span class="i-tr">30 Ekim 2026</span><span class="i-en">30 October 2026</span></td></tr>
+        <tr class="vurgu"><td><strong><span class="i-tr">Ara sınavlar (vize)</span><span class="i-en">Midterm exams</span></strong></td>
+            <td class="num"><strong><span class="i-tr">7-15 Kasım 2026</span><span class="i-en">7-15 November 2026</span></strong><br>
+            <span style="font-size:.85em;color:var(--gri)"><span class="i-tr">Fakülteler 21-22 Kasım hafta sonuna devam edebilir</span><span class="i-en">Faculties may continue on the weekend of 21-22 November</span></span></td></tr>
+        <tr><td><span class="i-tr">Dönem içi değerlendirmelerin OBS'ye girilmesi için son gün</span><span class="i-en">Deadline for entering in-term assessments into OBS</span></td>
+            <td class="num"><span class="i-tr">18 Aralık 2026</span><span class="i-en">18 December 2026</span></td></tr>
+        <tr><td><span class="i-tr">Dönem içi değerlendirme maddi hata düzeltmeleri için son gün</span><span class="i-en">Deadline for correcting clerical errors in in-term assessments</span></td>
+            <td class="num"><span class="i-tr">22 Aralık 2026</span><span class="i-en">22 December 2026</span></td></tr>
+        <tr class="vurgu"><td><strong><span class="i-tr">Derslerin bitişi</span><span class="i-en">Classes end</span></strong></td>
+            <td class="num"><strong><span class="i-tr">25 Aralık 2026</span><span class="i-en">25 December 2026</span></strong></td></tr>
+        <tr class="vurgu"><td><strong><span class="i-tr">Yarıyıl sonu sınavları (final)</span><span class="i-en">Final exams</span></strong></td>
+            <td class="num"><strong><span class="i-tr">28-30 Aralık 2026<br>4-10 Ocak 2027</span><span class="i-en">28-30 December 2026<br>4-10 January 2027</span></strong></td></tr>
+        <tr><td><span class="i-tr">Yılbaşı tatili</span><span class="i-en">New Year's Day holiday</span></td>
+            <td class="num"><span class="i-tr">1 Ocak 2027</span><span class="i-en">1 January 2027</span></td></tr>
+        <tr><td><span class="i-tr">Final notlarının sisteme girilmesi için son gün</span><span class="i-en">Deadline for entering final grades</span></td>
+            <td class="num"><span class="i-tr">13 Ocak 2027</span><span class="i-en">13 January 2027</span></td></tr>
+        <tr><td><span class="i-tr">Final notu maddi hata düzeltmeleri için son gün</span><span class="i-en">Deadline for correcting clerical errors in final grades</span></td>
+            <td class="num"><span class="i-tr">15 Ocak 2027</span><span class="i-en">15 January 2027</span></td></tr>
+        <tr class="vurgu"><td><strong><span class="i-tr">Bütünleme sınavları</span><span class="i-en">Resit exams</span></strong></td>
+            <td class="num"><strong><span class="i-tr">18-24 Ocak 2027</span><span class="i-en">18-24 January 2027</span></strong></td></tr>
+        <tr><td><span class="i-tr">Bütünleme notlarının sisteme girilmesi için son gün</span><span class="i-en">Deadline for entering resit grades</span></td>
+            <td class="num"><span class="i-tr">27 Ocak 2027</span><span class="i-en">27 January 2027</span></td></tr>
+        <tr><td><span class="i-tr">Bütünleme notu maddi hata düzeltmeleri için son gün</span><span class="i-en">Deadline for correcting clerical errors in resit grades</span></td>
+            <td class="num"><span class="i-tr">29 Ocak 2027</span><span class="i-en">29 January 2027</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="not">
+    <p class="i-tr"><strong>Vize ve final sınavlarının ders bazında kesin gün ve saatleri</strong> bölüm
+    tarafından ayrıca hazırlanıp duyurulur; hazır olduğunda OBS ve üniversite web sayfasından ilan edilir.
+    Yukarıdaki tarihler sınav <em>haftalarını</em> gösterir.</p>
+    <p class="i-en"><strong>The exact day and time of each midterm and final</strong> is prepared and announced
+    separately by the department; it is published on OBS and the university website when ready. The dates
+    above give the exam <em>windows</em>.</p>
+  </div>
+
+  <div class="not">
+    <p class="i-tr">Bir notunda hata olduğunu düşünüyorsan <strong>önce dersin öğretim elemanıyla görüş</strong>.
+    Yukarıdaki maddi hata düzeltme tarihleri bu düzeltmelerin yapılabileceği son günlerdir.</p>
+    <p class="i-en">If you think a grade is wrong, <strong>talk to the course instructor first</strong>.
+    The clerical-error dates above are the last days on which such corrections can be made.</p>
+  </div>
+
+  <p class="kaynak">
+    <span class="i-tr">Güncel ve resmî takvim her zaman burada:
+      <a href="https://www.gidatarim.edu.tr/tr/akademik-takvim">gidatarim.edu.tr/tr/akademik-takvim</a></span>
+    <span class="i-en">The current, official calendar is always here:
+      <a href="https://www.gidatarim.edu.tr/tr/akademik-takvim">gidatarim.edu.tr/tr/akademik-takvim</a></span>
+  </p>
+</section>
+
+<!-- ═══════════════ 7 · SSS ═══════════════ -->
+<section id="sss" aria-labelledby="h-sss">
+  <h2 id="h-sss"><span class="no">07</span><span class="i-tr">Sıkça Sorulan Sorular</span><span class="i-en">Frequently Asked Questions</span></h2>
+  <p class="giris">
+    <span class="i-tr">Oryantasyonda en çok merak edilenler.</span>
+    <span class="i-en">The questions we hear most at orientation.</span>
+  </p>
+
+  <details>
+    <summary><span class="i-tr">Bir derse en fazla kaç kez gelmeyebilirim?</span><span class="i-en">How many classes can I miss?</span></summary>
+    <div>
+      <p class="i-tr">Teorik derslerin <strong>%70'ine</strong>, uygulamalı derslerin <strong>%80'ine</strong>
+      devam zorunlusun. Yani teorik bir derste en fazla <strong>%30</strong>, uygulamalı bir derste en fazla
+      <strong>%20</strong> devamsızlık hakkın var. Bu sınırı aşarsan <strong>finale giremezsin</strong> ve
+      dersten <strong>NA</strong> alırsın — NA, ortalamanda F gibi işlem görür.</p>
+      <p class="i-en">You must attend <strong>70%</strong> of theory classes and <strong>80%</strong> of applied
+      classes. So you may miss at most <strong>30%</strong> of a theory course and <strong>20%</strong> of an
+      applied course. If you exceed this you <strong>cannot sit the final</strong> and receive
+      <strong>NA</strong> — which counts as F in your GPA.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="i-tr">Vize mi final mi daha çok etkiliyor?</span><span class="i-en">Which counts more, the midterm or the final?</span></summary>
+    <div>
+      <p class="i-tr"><strong>Oran derse göre değişir.</strong> Yönetmelik sabit bir yüzde belirlemez; her
+      dersin ağırlıklandırmasını o dersi veren öğretim elemanı belirler ve dönem başında
+      <strong>ders izlencesinde</strong> ilan eder. Her dersin izlencesini ilk hafta oku ve not al.</p>
+      <p class="i-en"><strong>It varies by course.</strong> The regulation does not fix a percentage; each
+      instructor sets the weighting and announces it in the <strong>course syllabus</strong> at the start of
+      the semester. Read every syllabus in the first week and write the weights down.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="i-tr">C- veya D aldım — dersten geçtim mi?</span><span class="i-en">I got a C- or D — did I pass?</span></summary>
+    <div>
+      <p class="i-tr"><strong>Şartlı olarak evet.</strong> C- ve D "koşullu geçer" notlardır: sayılmaları için
+      <strong>o yarıyılın not ortalamanın en az 2,00</strong> olması gerekir. Ortalaman 2,00'ın altında kalırsa
+      bu dersler başarısız sayılır ve tekrar alman gerekir. İstersen koşullu geçtiğin derslerin
+      <strong>bütünlemesine de girebilirsin</strong>; bu durumda son aldığın not geçerli olur.</p>
+      <p class="i-en"><strong>Conditionally, yes.</strong> C- and D are "conditional pass" grades: they only
+      count if <strong>your semester GPA is at least 2.00</strong>. If it falls below 2.00 these courses are
+      treated as failed and must be retaken. You may also <strong>sit the resit</strong> for conditionally
+      passed courses; the most recent grade then applies.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="i-tr">Bütünlemeye kimler girebilir?</span><span class="i-en">Who can take the resit exam?</span></summary>
+    <div>
+      <p class="i-tr">Yarıyıl sonu sınavı sonunda <strong>F</strong> aldığın derslerden girersin. Ayrıca koşullu
+      geçtiğin (C-, D) derslerden de isteğe bağlı olarak girebilirsin. Girebilmek için o derse kayıtlı olman ve
+      <strong>final sınavına girme şartlarını</strong> (yani devam yükümlülüğünü) sağlamış olman gerekir.
+      Bütünlemede aldığın not <strong>final notunun yerine geçer</strong> ve bu hak bir sonraki yarıyıla devretmez.</p>
+      <p class="i-en">You take it for courses in which you received <strong>F</strong>. You may also optionally
+      sit it for conditionally passed (C-, D) courses. You must be registered for the course and must have met
+      the <strong>requirements for sitting the final</strong> (i.e. attendance). The resit grade
+      <strong>replaces the final exam grade</strong>, and the right does not carry over to the next semester.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="i-tr">Vizeye giremedim, ne olacak?</span><span class="i-en">I missed a midterm — what now?</span></summary>
+    <div>
+      <p class="i-tr">Geçerli bir mazeretin varsa <strong>mazeret sınavı</strong> yapılır; tarihini, diğer
+      sınavlarına engel olmayacak şekilde dersin öğretim elemanı belirler. Bunu <strong>vakit kaybetmeden</strong>
+      dersin hocasına bildir. Önemli: <strong>final ve bütünleme sınavının mazereti yoktur</strong>, ayrıca
+      mazeret sınavının da mazereti yoktur.</p>
+      <p class="i-en">If you have a valid excuse a <strong>make-up exam</strong> is arranged; the instructor sets
+      a date that does not clash with your other exams. Tell your instructor <strong>as soon as possible</strong>.
+      Important: <strong>there is no make-up for the final or the resit</strong>, and no make-up for the make-up.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="i-tr">İlk dönemimde ders ekleyip bırakabilir miyim?</span><span class="i-en">Can I add or drop courses in my first semester?</span></summary>
+    <div>
+      <p class="i-tr"><strong>Hayır.</strong> Yönetmelik gereği kayıt olduğun ilk yarıyılda müfredatta belirtilen
+      ders yükünü değiştiremezsin ve birinci sınıfın programı kesindir. Ekle-bırak döneminde senin için pratikte
+      yalnızca <strong>grup/şube değişikliği</strong> söz konusu olabilir. Ayrıca müfredatın
+      <strong>ilk iki yarıyılındaki derslerden çekilme de yapılamaz</strong>. Süreç ikinci yarıyıldan itibaren
+      senin için anlam kazanacak.</p>
+      <p class="i-en"><strong>No.</strong> Under the regulation you cannot change the course load specified in
+      the curriculum during your first semester, and the first-year programme is fixed. In the add/drop window
+      the only thing that may apply to you is a <strong>section/group change</strong>. Withdrawal from courses
+      in the <strong>first two semesters</strong> is also not permitted. The process becomes relevant from your
+      second semester onwards.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="i-tr">OBS şifremi nasıl alırım / sıfırlarım?</span><span class="i-en">How do I get or reset my OBS password?</span></summary>
+    <div>
+      <p class="i-tr">Kullanıcı adın <strong>öğrenci numarandır</strong>.
+      <a href="https://obs.gidatarim.edu.tr/">obs.gidatarim.edu.tr</a> giriş ekranındaki
+      <strong>"Şifremi Unuttum"</strong> bölümünden kimlik bilgilerini doldurarak şifre oluşturursun.
+      Sıfırlama bağlantısı <strong>kurumsal <code>@ogr.gidatarim.edu.tr</code> adresine</strong> gönderilir —
+      bu yüzden kurumsal e-postana erişebiliyor olman şart. Giriş yaptıktan sonra şifreni değiştirip
+      bilgilerini güncelle.</p>
+      <p class="i-en">Your username is your <strong>student number</strong>. On the
+      <a href="https://obs.gidatarim.edu.tr/">obs.gidatarim.edu.tr</a> login screen use
+      <strong>"Şifremi Unuttum" (Forgot my password)</strong> and fill in your identity details. The reset link
+      is sent to your <strong>institutional <code>@ogr.gidatarim.edu.tr</code> address</strong> — so you must be
+      able to access it. After logging in, change your password and update your details.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="i-tr">Yemekhaneden nasıl yararlanırım?</span><span class="i-en">How do I use the cafeteria?</span></summary>
+    <div>
+      <p class="i-tr">Yemek <strong>rezervasyon</strong> ile çalışır. Bir sonraki haftanın rezervasyonlarını
+      <a href="https://kampuskart.gidatarim.edu.tr/">kampuskart.gidatarim.edu.tr</a> üzerinden
+      <strong>Cuma günü mesai bitimine kadar</strong> yaptırman gerekir. Rezervasyonlu öğün
+      <strong>175 TL</strong>, rezervasyonsuz <strong>350 TL</strong>. Haftalık menü de aynı sitede.</p>
+      <p class="i-en">Meals work by <strong>reservation</strong>. Book the following week's meals at
+      <a href="https://kampuskart.gidatarim.edu.tr/">kampuskart.gidatarim.edu.tr</a> by
+      <strong>the end of business on Friday</strong>. A reserved meal costs <strong>175 TL</strong>, without a
+      reservation <strong>350 TL</strong>. The weekly menu is on the same site.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════ 8 · GERİ BİLDİRİM ═══════════════ -->
+<section id="geribildirim" aria-labelledby="h-geri">
+  <h2 id="h-geri"><span class="no">08</span><span class="i-tr">Geri Bildirim</span><span class="i-en">Feedback</span></h2>
+
+  <p class="i-tr">Buraya kadar okuduğun için teşekkürler. Bu sayfayı dönem boyunca yer imlerine ekleyebilir,
+  sınav haftalarında tekrar açabilirsin. <strong>Oryantasyon programı</strong> hakkındaki düşüncelerini
+  aşağıdaki kısa formla paylaşırsan, gelecek yılın programını daha iyi hâle getirmemize yardımcı olursun.
+  Form <strong>anonimdir</strong>.</p>
+  <p class="i-en">Thanks for reading this far. Bookmark this page for the semester and come back to it during
+  exam weeks. Sharing your thoughts on the <strong>orientation programme</strong> in the short form below
+  helps us improve next year's event. The form is <strong>anonymous</strong>.</p>
+
+  <form id="gbForm" novalidate>
+    <fieldset>
+      <legend id="s1lbl">
+        <span class="i-tr">1. Oryantasyon programını genel olarak ne kadar beğendiniz?</span>
+        <span class="i-en">1. Overall, how much did you like the orientation programme?</span>
+      </legend>
+      <div class="skala" role="radiogroup" aria-labelledby="s1lbl">
+        <label><input type="radio" name="puan" value="1" required><span>1</span></label>
+        <label><input type="radio" name="puan" value="2"><span>2</span></label>
+        <label><input type="radio" name="puan" value="3"><span>3</span></label>
+        <label><input type="radio" name="puan" value="4"><span>4</span></label>
+        <label><input type="radio" name="puan" value="5"><span>5</span></label>
+      </div>
+      <div class="skala-uc">
+        <span><span class="i-tr">1 — Hiç beğenmedim</span><span class="i-en">1 — Not at all</span></span>
+        <span><span class="i-tr">5 — Çok beğendim</span><span class="i-en">5 — Very much</span></span>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <label for="faydali">
+          <span class="i-tr">2. Programın en faydalı bulduğunuz yönü neydi?</span>
+          <span class="i-en">2. What did you find most useful about the programme?</span>
+        </label>
+        <span class="ops"><span class="i-tr">(isteğe bağlı)</span><span class="i-en">(optional)</span></span>
+      </legend>
+      <textarea id="faydali" name="faydali" maxlength="1000"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <label for="oneri">
+          <span class="i-tr">3. Programda değinilmeyen bir nokta veya geliştirme öneriniz var mı?</span>
+          <span class="i-en">3. Anything the programme did not cover, or suggestions for improvement?</span>
+        </label>
+        <span class="ops"><span class="i-tr">(isteğe bağlı)</span><span class="i-en">(optional)</span></span>
+      </legend>
+      <textarea id="oneri" name="oneri" maxlength="1000"></textarea>
+    </fieldset>
+
+    <button type="submit" class="gonder" id="gbBtn">
+      <span class="i-tr">Gönder</span><span class="i-en">Submit</span>
+    </button>
+    <p class="durum" id="gbDurum" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Konya Gıda ve Tarım Üniversitesi</strong> ·
+      <span class="i-tr">Mühendislik ve Mimarlık Fakültesi · Bilgisayar Mühendisliği Bölümü</span>
+      <span class="i-en">Faculty of Engineering and Architecture · Department of Computer Engineering</span></p>
+    <p>Melikşah Mah. Beyşehir Cad. No:9, 42080 Meram / Konya</p>
+    <p>
+      <span class="i-tr">Bu rehberdeki akademik kurallar KGTÜ Ön Lisans ve Lisans Eğitim-Öğretim Yönetmeliği'ne
+      (RG 06.08.2023/32271) ve 2026-2027 Akademik Takvimi'ne dayanır. Bağlayıcı olan resmî metinlerdir;
+      tereddüt hâlinde
+      <a href="https://www.gidatarim.edu.tr/tr/oidb">Öğrenci İşleri Daire Başkanlığı</a>'na başvurun.</span>
+      <span class="i-en">The academic rules in this guide are based on the KGTÜ Associate and Undergraduate
+      Education Regulation (Official Gazette 06.08.2023/32271) and the 2026-2027 Academic Calendar. The official
+      texts are binding; in case of doubt contact the
+      <a href="https://www.gidatarim.edu.tr/tr/oidb">Student Affairs Department</a>.</span>
+    </p>
+    <p><span class="i-tr">Son güncelleme: 22 Eylül 2026</span><span class="i-en">Last updated: 22 September 2026</span></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 1. Dil ---------- */
+  var KEY_DIL = "kgtu-ceng-dil";
+  var btnTr = document.getElementById("btnTr");
+  var btnEn = document.getElementById("btnEn");
+
+  function oku(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function yaz(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+
+  function dilAyarla(dil, kaydet){
+    dil = (dil === "en") ? "en" : "tr";
+    document.documentElement.lang = dil;
+    btnTr.setAttribute("aria-pressed", String(dil === "tr"));
+    btnEn.setAttribute("aria-pressed", String(dil === "en"));
+    if (kaydet) yaz(KEY_DIL, dil);
+  }
+
+  /* Kayıtlı tercih > tarayıcı dili. Tarayıcı dili Türkçe ise TR, değilse EN. */
+  var kayitli = oku(KEY_DIL);
+  if (kayitli === "tr" || kayitli === "en") {
+    dilAyarla(kayitli, false);
+  } else {
+    var tarayici = (navigator.languages && navigator.languages[0]) || navigator.language || "tr";
+    dilAyarla(/^tr/i.test(tarayici) ? "tr" : "en", false);
+  }
+
+  btnTr.addEventListener("click", function(){ dilAyarla("tr", true); });
+  btnEn.addEventListener("click", function(){ dilAyarla("en", true); });
+
+  /* ---------- 2. Geri bildirim formu ---------- */
+
+  /* ==========================================================================
+     APPS SCRIPT WEB APP URL'İNİ BURAYA YAPIŞTIR.
+     Deploy > New deployment > Web app > Execute as: Me,
+     Who has access: Anyone  ->  çıkan /exec ile biten URL.
+     ========================================================================== */
+  var FEEDBACK_ENDPOINT = "BURAYA_APPS_SCRIPT_WEB_APP_URL_YAPISTIR";
+
+  var KEY_GONDERILDI = "kgtu-ceng-gb-gonderildi";
+  var KEY_CIHAZ = "kgtu-ceng-cihaz";
+
+  var form   = document.getElementById("gbForm");
+  var btn    = document.getElementById("gbBtn");
+  var durum  = document.getElementById("gbDurum");
+
+  function metin(tr, en){ return document.documentElement.lang === "en" ? en : tr; }
+
+  function durumYaz(tr, en, sinif){
+    durum.className = "durum" + (sinif ? " " + sinif : "");
+    durum.textContent = metin(tr, en);
+    durum.setAttribute("data-tr", tr);
+    durum.setAttribute("data-en", en);
+  }
+
+  /* Cihaz başına tek gönderim için rastgele, kimliksiz bir anahtar üretilir.
+     Kişisel veri içermez; yalnızca aynı tarayıcıdan ikinci gönderimi engeller. */
+  function cihazAnahtari(){
+    var v = oku(KEY_CIHAZ);
+    if (v) return v;
+    if (window.crypto && crypto.randomUUID) {
+      v = crypto.randomUUID();
+    } else {
+      v = "x" + Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+    }
+    yaz(KEY_CIHAZ, v);
+    return v;
+  }
+
+  function kilitle(tr, en){
+    btn.disabled = true;
+    Array.prototype.forEach.call(form.elements, function(el){ el.disabled = true; });
+    durumYaz(tr, en, "ok");
+  }
+
+  if (oku(KEY_GONDERILDI) === "1") {
+    kilitle("Bu cihazdan geri bildiriminiz zaten alındı. Teşekkürler!",
+            "Your feedback has already been received from this device. Thank you!");
+  }
+
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+
+    var secili = form.querySelector('input[name="puan"]:checked');
+    if (!secili) {
+      durumYaz("Lütfen 1-5 arasında bir puan seçin.",
+               "Please choose a rating from 1 to 5.", "hata");
+      return;
+    }
+
+    if (FEEDBACK_ENDPOINT.indexOf("http") !== 0) {
+      durumYaz("Form henüz bağlanmadı (Apps Script URL'i eksik).",
+               "The form is not connected yet (Apps Script URL missing).", "hata");
+      return;
+    }
+
+    btn.disabled = true;
+    durumYaz("Gönderiliyor...", "Sending...", "");
+
+    var veri = {
+      puan: secili.value,
+      faydali: form.elements.faydali.value.trim(),
+      oneri: form.elements.oneri.value.trim(),
+      cihaz: cihazAnahtari(),
+      dil: document.documentElement.lang,
+      zaman: new Date().toISOString()
+    };
+
+    /* text/plain -> tarayıcı CORS ön kontrolü (preflight) yapmaz,
+       Apps Script de gövdeyi e.postData.contents olarak okur. */
+    fetch(FEEDBACK_ENDPOINT, {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(veri)
+    })
+    .then(function(r){ return r.json().catch(function(){ return { ok: r.ok }; }); })
+    .then(function(sonuc){
+      if (sonuc && sonuc.ok === false && sonuc.hata === "tekrar") {
+        yaz(KEY_GONDERILDI, "1");
+        kilitle("Bu cihazdan geri bildiriminiz zaten alınmış. Teşekkürler!",
+                "Feedback from this device has already been recorded. Thank you!");
+        return;
+      }
+      yaz(KEY_GONDERILDI, "1");
+      kilitle("Teşekkürler! Geri bildiriminiz alındı.",
+              "Thank you! Your feedback has been received.");
+    })
+    .catch(function(){
+      btn.disabled = false;
+      durumYaz("Gönderilemedi. Bağlantını kontrol edip tekrar dene.",
+               "Could not send. Check your connection and try again.", "hata");
+    });
+  });
+
+  /* Dil değişince durum mesajı da çevrilsin */
+  [btnTr, btnEn].forEach(function(b){
+    b.addEventListener("click", function(){
+      var tr = durum.getAttribute("data-tr");
+      var en = durum.getAttribute("data-en");
+      if (tr && en) durum.textContent = metin(tr, en);
+    });
+  });
+})();
+</script>
+</body>
+</html>
