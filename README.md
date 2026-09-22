@@ -13,6 +13,7 @@ QR kod ile paylaşılmak üzere hazırlanmış, TR/EN çift dilli, tek dosyalık
 |---|---|
 | `index.html` | Rehberin tamamı — HTML, CSS ve JS tek dosyada, harici bağımlılık yok. Logo base64 olarak gömülüdür. |
 | `apps-script/Code.gs` | Geri bildirim formunun arka ucu (Google Apps Script Web App). Repoda yayınlanmaz, kurulum içindir. |
+| `apps-script/Analiz.gs` | E-Tabloda "Analiz" sayfasını formüllerle kuran tek seferlik yardımcı. Web App'in parçası değildir. |
 | `assets/logo_bl.png` · `assets/logo_wh.png` | Logonun açık ve koyu tema sürümlerinin yüksek çözünürlüklü kaynakları. Sayfa bunları kırpıp küçülterek base64 olarak gömer; dosyalar yeniden üretim için durur. |
 | `assets/favicon.pdf` | Favicon'un vektör kaynağı. Sayfaya gömülü 32px PNG ve `apple-touch-icon.png` bundan üretildi. |
 | `assets/apple-touch-icon.png` | iOS ana ekran simgesi (180×180). Sayfa buna dosya olarak bağlanır. |
@@ -128,6 +129,44 @@ dersen uç nokta tamamen kapanır. Toplanan veriler E-Tablo'da kalır.
 **Yapılmaması gerekenler:** Bu uç noktaya öğrenci numarası, TC kimlik, e-posta gibi kişisel
 veri gönderme. Form bilerek anonim tasarlandı — açık bir uç noktaya kişisel veri akıtmak,
 URL'in görünür olmasını gerçek bir soruna çevirirdi.
+
+---
+
+## Analiz sayfası
+
+Geri bildirimler biriktikçe özetini görmek için E-Tabloya formül tabanlı bir **Analiz**
+sayfası kurulabilir. Formül tabanlı olması önemli: yeni satır düştükçe sayılar kendiliğinden
+güncellenir, tekrar bir şey çalıştırmak veya yeniden dağıtım yapmak gerekmez.
+
+46 formülü elle yazmak yerine `apps-script/Analiz.gs` sayfayı tek seferde kuruyor.
+
+1. Apps Script düzenleyicisinde soldaki **Dosyalar** bölümünden **+ → Komut dosyası**,
+   adını `Analiz` yap.
+2. `apps-script/Analiz.gs` içeriğini yapıştır, kaydet.
+3. Üstteki fonksiyon listesinden **`analizSayfasiKur`**'u seç, **Çalıştır**'a bas.
+4. E-Tabloya dön — **Analiz** sayfası hazır.
+
+**Yeniden dağıtım gerekmez.** Bu fonksiyon `doPost`/`doGet`'e dokunmaz; Web App URL'i
+ve çalışan form etkilenmez.
+
+Sayfada neler var: toplam geri bildirim, ortalama/medyan/en düşük/en yüksek puan, ilk ve
+son gönderim zamanı, katılım oranı (sınıf mevcudunu **B12**'ye elle yazınca hesaplanır),
+1-5 puan dağılımı (sayı, oran ve çubuk), memnuniyet grupları (4-5 / 3 / 1-2), açık uçlu
+soruların doldurulma oranları, yanıt başına ortalama uzunluk, sayfa dili dağılımı, günlük
+gönderim sayısı ve en yeni 20 yorumun listesi.
+
+Fonksiyonu tekrar çalıştırmak güvenlidir: sayfa sıfırdan kurulur, B12'ye yazdığın sınıf
+mevcudu korunur.
+
+> **Neden komut dosyası, neden elle formül değil?** Türkçe yerel ayarlı Sheets formül
+> argümanlarını virgülle değil **noktalı virgülle** ayırır; hazır formülleri kopyalayıp
+> yapıştırınca hata verir. Apps Script `setFormula` her zaman ABD sözdizimi kullanır ve
+> Sheets gösterirken kendi yereline çevirir — bu yüzden komut dosyası yolu yerel ayardan
+> bağımsız çalışır.
+
+> **Dikkat:** `Geri Bildirim` sayfasının adını değiştirirsen formüller kırılır. Değiştirmen
+> gerekirse `Code.gs` içindeki `SAYFA_ADI` sabitini de güncelle ve `analizSayfasiKur`'u
+> tekrar çalıştır.
 
 ---
 
