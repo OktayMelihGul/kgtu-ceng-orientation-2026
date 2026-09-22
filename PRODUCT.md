@@ -1,6 +1,6 @@
 # PRODUCT.md — KGTÜ Bilgisayar Mühendisliği Oryantasyon Rehberi
 
-**Durum:** Taslak brief — Aşama 2 (mülakat) cevapları beklemede
+**Durum:** Mülakat tamamlandı, sayfa yayında — kalan iki placeholder aşağıda
 **Tarih:** 22 Eylül 2026
 **Akademik yıl:** 2026-2027 Güz
 
@@ -63,8 +63,8 @@ Danışman hoca sistemi · Staj süreci · Bitirme projesi · Kulüpler · Ayrı
 |---|---|---|
 | Format | Tek `index.html` (inline CSS + JS) | QR → tek istek → anında açılır |
 | Çerçeve | Yok | Bağımlılık = bakım yükü + yavaşlık |
-| İki dillilik | **Aşama 2'de karar** | Bkz. Soru 2 |
-| Hosting | GitHub Pages | **Repo adı Aşama 2'de** |
+| İki dillilik | Dil değiştirme butonu, tarayıcı diline göre otomatik seçim | Tek QR yeter, tek dosya kalır |
+| Hosting | GitHub Pages — `OktayMelihGul/kgtu-ceng-orientation-2026` | Public repo, özel alan adı yok |
 | Form | `fetch()` → Google Apps Script Web App | URL placeholder olarak bırakılacak |
 | Erişilebilirlik | WCAG 2.2 AA hedef | Yabancı öğrenciler + ekran okuyucu |
 
@@ -170,23 +170,30 @@ Aşağıdakiler yüklenen belgelerden **doğrudan** çıkarıldı. Aşama 2'de t
 
 **OBS ilk giriş (Öğrenci El Kitabı'ndan):** Kullanıcı adı = öğrenci numarası. Şifre giriş ekranındaki "Şifremi Unuttum / şifre sıfırlama" bölümünden oluşturulur; sıfırlama bağlantısı **kurumsal `@gidatarim.edu.tr` e-postasına** gönderilir.
 
-## 8. Çözülmemiş noktalar
+## 8. Mülakatta verilen kararlar
 
-Aşama 2 mülakatında sorulacak. Cevap gelmeden ilgili içerik yazılmayacak.
-
-| # | Konu | Neden açık |
+| # | Konu | Karar |
 |---|---|---|
-| A | Vize/final yüzde ağırlığı | Yönetmelikte yok — öğretim elemanı belirliyor |
-| B | 2026-2027 harf notu tablosu | El Kitabı tabloyu "2025-2026 ve **öncesinde** kullanılan" diye etiketliyor → yeni tablo olabilir |
-| C | El Kitabı ↔ Yönetmelik çelişkisi | El Kitabı C- aralığını 50-59, F'yi "D 0,00" yazmış; Yönetmelik C- 55-59, F 0-49 |
-| D | Ders yükü artırımı ifadesi | Yönetmelik "40'ı aşmamak", El Kitabı "+10 AKTS" diyor |
-| E | Programın öğretim dili | Müfredat tamamen İngilizce yazılmış; %100 İngilizce mi, %30 mu? Hazırlık zorunlu mu? |
-| F | Wi-Fi / eduroam bilgisi | Kamuya açık sitede bulunamadı |
-| G | Yemekhane saatleri/ücret, ulaşım hatları | Sitede yok, yalnızca Kampüs Kart linki var |
-| H | Kütüphane çalışma saatleri | Yalnızca 2021 tarihli grup odası duyurusu (09:00-17:00) bulundu — güncel mi? |
-| I | Müfredat dosyasındaki 2 kodsuz seçmeli satır + `#REF!` hatası | Kaynak dosyada eksik |
-| J | Yabancı uyruklu öğrenci ek süreçleri | Yönetmelikte yalnızca kabul/vize/dil maddeleri var, oryantasyon sonrası süreç yok |
-| K | Dil sunumu, görsel kimlik, repo adı, Apps Script URL | Tercih kararları |
+| A | Vize/final ağırlığı | Sabit oran yazılmadı: "derse göre değişir, ders izlencesine bak" |
+| B, C | Harf notu tablosu | **Yönetmelik tablosu esas alındı.** Öğrenci El Kitabı'ndaki C- (50-59) ve "D 0,00" satırları hatalı kabul edildi |
+| D | Ders yükü artırımı | Yönetmelik ifadesi kullanıldı (30 taban, 40 tavan) |
+| E | Öğretim dili | %100 İngilizce. Öğrenciler hazırlığı geçmiş/atlamış olduğu için hazırlık anlatılmadı |
+| F | Wi-Fi | SSID `KGTU`, kurumsal e-posta + şifre. Windows ek işlem yok, Android ayar, iPhone sertifika. Detay için Bilgi İşlem sayfasına link |
+| G | Yemekhane | Kampüs Kart üzerinden haftalık rezervasyon, Cuma mesai bitimine kadar. 175 TL rezervasyonlu / 350 TL rezervasyonsuz |
+| H | Kütüphane | **Çıkarıldı** — kurallar sık değiştiği için eskiyen bilgi bırakılmadı |
+| I | Müfredat seçmelileri | Yarıyıl bazında yapı olarak verildi (5 AKTS seçmeli, 2 AKTS sosyal seçmeli); ders listesi yok, Bologna'ya yönlendirildi |
+| J | Yabancı öğrenciler | Ayrı bölüm açılmadı; içerik zaten iki dilli |
+| — | Ulaşım, kimlik kartı, mazeretli geç kayıt, kayıt dondurma, not itirazı prosedürü, tebligat maddesi | Kapsam dışı bırakıldı |
+| — | Mezuniyet Md. 39(3)c | "Son iki yarıyıl KGTÜ'de" şartına Erasmus/değişim istisnası eklendi |
+| — | Ekle-sil sayacı | **Yapılmadı** — 1. yarıyılda silinebilecek ders yok, sayfa dönem boyu kullanılacak |
+
+### Hâlâ açık — yayından önce doldurulmalı
+
+1. **Arş. Gör. Oktay Melih Gül'ün kurumsal e-postası** — `index.html` içinde
+   `EPOSTA_DOLDURULACAK@gidatarim.edu.tr` placeholder'ı duruyor.
+2. **Apps Script Web App URL'i** — `index.html` içinde `FEEDBACK_ENDPOINT` placeholder'ı duruyor.
+   Kurulum adımları `README.md`'de.
+3. **Bölüm başkanı onayı** — içerik yayın öncesi son kez teyit edilmeli.
 
 ## 9. Teslim edilecekler
 
