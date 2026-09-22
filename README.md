@@ -93,6 +93,42 @@ her gönderimde sunucuda kontrol edilir. Bu, aynı tarayıcıdan ikinci kez gön
 Gizli sekme, farklı cihaz veya site verisi temizlenmesi durumunda yeni anahtar üretilir —
 kimlik doğrulaması olmadan anonim bir formda bunun ötesi mümkün değildir.
 
+### Web App URL'i sayfada açıkta — bu ne kadar sorun?
+
+**URL bir sır değil ve olamaz.** Statik bir sayfa, tarayıcıdan çağırdığı her adresi
+zorunlu olarak açık eder; sayfanın kaynağına bakan herkes görür. Gizlemenin (obfuscation,
+parçalayıp birleştirme, ayrı dosyaya koyma) hiçbiri işe yaramaz, çünkü isteği yine tarayıcı
+atıyor. Sunucusuz mimarinin doğal sonucu bu.
+
+**Sızıntı riski yok.** Uç nokta yalnızca yazar:
+
+- `doPost` sadece satır ekler, hiçbir kaydı geri döndürmez.
+- `doGet` yalnızca `{ok:true}` sağlık yanıtı verir; E-Tablo'ya erişim vermez.
+- E-Tablo'nun kendisi paylaşılmadığı sürece özeldir. Apps Script "Farklı yürüt: Ben"
+  ayarıyla çalıştığı için istek atan kişi senin yetkinle *yalnızca bu fonksiyonu*
+  tetikler, dosyaya erişemez.
+
+**Gerçek risk spam.** URL'i bulan biri formu doldurmadan doğrudan istek atıp tabloyu
+şişirebilir. Tarayıcıdaki cihaz anahtarı bunu engellemez — istemci tarafındadır, kolayca
+atlanır. Bu yüzden sınırlar `Code.gs` içinde, sunucu tarafında:
+
+| Sınır | Değer | Ne yapar |
+|---|---|---|
+| `GUNLUK_LIMIT` | 300 | Bir günde kabul edilen en fazla kayıt |
+| `TOPLAM_LIMIT` | 2000 | Tablodaki toplam kayıt tavanı |
+| `EN_UZUN_GOVDE` | 4000 | Kabul edilen en büyük istek gövdesi (bayt) |
+
+Ayrıca puan 1-5 aralığında değilse, JSON bozuksa veya cihaz anahtarı yoksa istek reddedilir.
+Sınıf ~100 kişiyse bu değerler bolca yeter; gerekirse `Code.gs` başından değiştir.
+
+**En temiz koruma: işin bitince dağıtımı kaldır.** Oryantasyon geri bildirimi birkaç
+günlük bir iştir. Süre dolunca Apps Script'te **Dağıt → Dağıtımları yönet → Arşivle**
+dersen uç nokta tamamen kapanır. Toplanan veriler E-Tablo'da kalır.
+
+**Yapılmaması gerekenler:** Bu uç noktaya öğrenci numarası, TC kimlik, e-posta gibi kişisel
+veri gönderme. Form bilerek anonim tasarlandı — açık bir uç noktaya kişisel veri akıtmak,
+URL'in görünür olmasını gerçek bir soruna çevirirdi.
+
 ---
 
 ## GitHub Pages

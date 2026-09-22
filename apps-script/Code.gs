@@ -17,6 +17,22 @@
 /** Verilerin yazılacağı sayfa adı. Yoksa otomatik oluşturulur. */
 var SAYFA_ADI = 'Geri Bildirim';
 
+/**
+ * SPAM SINIRLARI
+ *
+ * Web App URL'i statik sayfanın içinde durur ve gizlenemez — tarayıcının
+ * çağırdığı her adres görünürdür. Bu bir sızıntı değil: uç nokta yalnızca
+ * yazar, hiçbir kaydı okutmaz. Gerçek risk, adresi bulan birinin form
+ * doldurmadan doğrudan istek atıp tabloyu şişirmesidir. Tarayıcıdaki cihaz
+ * anahtarı bunu engellemez (istemci tarafı), bu yüzden sınırlar burada.
+ *
+ * Oryantasyon sınıfı ~100 kişiyse bu değerler bolca yeter. Etkinlik
+ * bittikten sonra dağıtımı kaldırmak en temiz korumadır.
+ */
+var GUNLUK_LIMIT = 300;   // bir gün içinde kabul edilecek en fazla kayıt
+var TOPLAM_LIMIT = 2000;  // tablodaki toplam kayıt tavanı
+var EN_UZUN_GOVDE = 4000; // bayt olarak kabul edilecek en büyük istek gövdesi
+
 /** Sütun başlıkları — sıralama doPost içindeki appendRow ile eşleşmeli. */
 var BASLIKLAR = ['Zaman (sunucu)', 'Puan (1-5)', 'En faydalı yön', 'Öneri / eksik', 'Dil', 'Cihaz anahtarı'];
 
@@ -28,6 +44,10 @@ function doPost(e) {
 
     if (!e || !e.postData || !e.postData.contents) {
       return yanit({ ok: false, hata: 'bos-govde' });
+    }
+
+    if (e.postData.contents.length > EN_UZUN_GOVDE) {
+      return yanit({ ok: false, hata: 'govde-buyuk' });
     }
 
     var veri;
@@ -48,6 +68,14 @@ function doPost(e) {
     }
 
     var sayfa = sayfayiAl();
+
+    // Spam tavanları: uç nokta herkese açık olduğu için sunucuda sınırlanır.
+    if (sayfa.getLastRow() - 1 >= TOPLAM_LIMIT) {
+      return yanit({ ok: false, hata: 'toplam-limit' });
+    }
+    if (bugunkuSayi(sayfa) >= GUNLUK_LIMIT) {
+      return yanit({ ok: false, hata: 'gunluk-limit' });
+    }
 
     // Cihaz başına tek gönderim: son sütundaki anahtarları tara.
     if (cihazVarMi(sayfa, cihaz)) {
@@ -97,6 +125,26 @@ function sayfayiAl() {
     sayfa.setFrozenRows(1);
   }
   return sayfa;
+}
+
+/** Bugün kaç kayıt düşmüş? */
+function bugunkuSayi(sayfa) {
+  var sonSatir = sayfa.getLastRow();
+  if (sonSatir < 2) return 0;
+  var bugun = new Date();
+  bugun.setHours(0, 0, 0, 0);
+  // Tarihler ilk sütunda; sondan başlayıp bugünün dışına çıkınca duruyoruz.
+  var bakilacak = Math.min(sonSatir - 1, GUNLUK_LIMIT + 50);
+  var ilk = sonSatir - bakilacak + 1;
+  var degerler = sayfa.getRange(ilk, 1, bakilacak, 1).getValues();
+  var sayi = 0;
+  for (var i = degerler.length - 1; i >= 0; i--) {
+    var d = degerler[i][0];
+    if (!(d instanceof Date)) continue;
+    if (d.getTime() < bugun.getTime()) break;
+    sayi++;
+  }
+  return sayi;
 }
 
 /** Cihaz anahtarı daha önce kaydedilmiş mi? */
