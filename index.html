@@ -69,12 +69,14 @@
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
+    color-scheme:dark;
     --kagit:#141215; --yuzey:#1B181C; --murekkep:#EDE9E4; --murekkep-soft:#A39C97;
     --cizgi:#322D33; --cizgi-koyu:#443E45; --bordo:#E8767C; --bordo-ton:#2B1B1D;
     --altin:#D9B978; --dolgu:#E8767C; --dolgu-yazi:#141215; --secim:#472427;
   }
 }
 :root[data-theme="dark"]{
+  color-scheme:dark;
   --kagit:#141215; --yuzey:#1B181C; --murekkep:#EDE9E4; --murekkep-soft:#A39C97;
   --cizgi:#322D33; --cizgi-koyu:#443E45; --bordo:#E8767C; --bordo-ton:#2B1B1D;
   --altin:#D9B978; --dolgu:#E8767C; --dolgu-yazi:#141215; --secim:#472427;
@@ -85,6 +87,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box}
 html{
+  color-scheme:light;
   -webkit-text-size-adjust:100%;
   scroll-behavior:smooth;
   scroll-padding-top:calc(var(--cubuk) + .75rem);
@@ -211,6 +214,23 @@ code,.mono{
 }
 .dizin-ac svg{width:.8rem;height:.8rem;transition:transform var(--gecis)}
 .dizin-ac[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+.tema{
+  appearance:none;background:none;margin:0;padding:0;flex:none;cursor:pointer;
+  width:40px;min-height:44px;display:grid;place-items:center;
+  border:1px solid var(--cizgi-koyu);border-radius:2px;color:var(--murekkep);
+  transition:color var(--gecis),border-color var(--gecis);
+}
+.tema:hover{color:var(--bordo);border-color:var(--bordo)}
+.tema svg{width:1.05rem;height:1.05rem;display:block}
+/* Düğme, geçilecek temanın simgesini gösterir. */
+.tema .gunes{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .tema .ay{display:none}
+  :root:not([data-theme="light"]) .tema .gunes{display:block}
+}
+:root[data-theme="dark"] .tema .ay{display:none}
+:root[data-theme="dark"] .tema .gunes{display:block}
 
 .dil{display:flex;border:1px solid var(--cizgi-koyu);border-radius:2px;overflow:hidden;flex:none}
 .dil button{
@@ -523,6 +543,17 @@ footer a:hover{color:var(--bordo)}
     <button type="button" class="dizin-ac" id="dizinAc" aria-expanded="false" aria-controls="dizin">
       <span class="tr">İçindekiler</span><span class="en">Contents</span>
       <svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></svg>
+    </button>
+    <button type="button" class="tema" id="temaBtn">
+      <svg class="ay" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M17 12.3A7.5 7.5 0 0 1 7.7 3 7.5 7.5 0 1 0 17 12.3Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <svg class="gunes" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="10" cy="10" r="3.6" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 1.4v2.1M10 16.5v2.1M18.6 10h-2.1M3.5 10H1.4M16.07 3.93l-1.48 1.48M5.41 14.59l-1.48 1.48M16.07 16.07l-1.48-1.48M5.41 5.41 3.93 3.93"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
     </button>
     <div class="dil" role="group" aria-label="Dil / Language">
       <button type="button" id="btnTr" aria-pressed="true" lang="tr">TR</button>
@@ -1302,6 +1333,48 @@ footer a:hover{color:var(--bordo)}
     if(durum&&durum.dataset.tr){durum.textContent=metin(durum.dataset.tr,durum.dataset.en)}
   }
 
+  /* ── Tema ──────────────────────────────────────────────────────────────
+     Kayıtlı tercih varsa o geçerli; yoksa sayfa sistem ayarını izler.
+     Düğme her zaman "geçilecek" temayı anlatır. */
+  var TEMA="kgtu-ceng-tema", temaBtn=document.getElementById("temaBtn");
+
+  function koyuMu(){
+    var t=document.documentElement.getAttribute("data-theme");
+    if(t==="dark")  return true;
+    if(t==="light") return false;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  function temaEtiketi(){
+    temaBtn.setAttribute("aria-label",
+      koyuMu() ? metin("Açık temaya geç","Switch to light theme")
+               : metin("Koyu temaya geç","Switch to dark theme"));
+  }
+
+  /* Tarayıcı arayüz rengi de seçilen temayı izlesin. */
+  function temaRengi(koyu){
+    var renk = koyu ? "#141215" : "#8E1D22";
+    var metalar=document.querySelectorAll('meta[name="theme-color"]');
+    for(var i=0;i<metalar.length;i++){
+      metalar[i].removeAttribute("media");
+      metalar[i].setAttribute("content",renk);
+    }
+  }
+
+  var kayitliTema=oku(TEMA);
+  if(kayitliTema==="dark"||kayitliTema==="light"){
+    document.documentElement.setAttribute("data-theme",kayitliTema);
+    temaRengi(kayitliTema==="dark");
+  }
+
+  temaBtn.addEventListener("click",function(){
+    var yeni = koyuMu() ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme",yeni);
+    yaz(TEMA,yeni);
+    temaRengi(yeni==="dark");
+    temaEtiketi();
+  });
+
   /* ── Dil ───────────────────────────────────────────────────────────────── */
   var DIL="kgtu-ceng-dil",
       btnTr=document.getElementById("btnTr"),
@@ -1314,6 +1387,7 @@ footer a:hover{color:var(--bordo)}
     btnEn.setAttribute("aria-pressed",String(d==="en"));
     if(kaydet) yaz(DIL,d);
     durumCevir();
+    temaEtiketi();
     isaretleYenile();
   }
 

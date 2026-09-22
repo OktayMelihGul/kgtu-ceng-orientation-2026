@@ -158,11 +158,12 @@ gönderim sayısı ve en yeni 20 yorumun listesi.
 Fonksiyonu tekrar çalıştırmak güvenlidir: sayfa sıfırdan kurulur, B12'ye yazdığın sınıf
 mevcudu korunur.
 
-> **Neden komut dosyası, neden elle formül değil?** Türkçe yerel ayarlı Sheets formül
-> argümanlarını virgülle değil **noktalı virgülle** ayırır; hazır formülleri kopyalayıp
-> yapıştırınca hata verir. Apps Script `setFormula` her zaman ABD sözdizimi kullanır ve
-> Sheets gösterirken kendi yereline çevirir — bu yüzden komut dosyası yolu yerel ayardan
-> bağımsız çalışır.
+> **Argüman ayırıcı tuzağı.** Türkçe yerel ayarlı Sheets formül argümanlarını virgülle
+> değil **noktalı virgülle** ayırır ve `setFormula` bunu kendiliğinden çevirmez — yanlışını
+> yazarsan her hücre "Formül ayrıştırma hatası" verir. `Analiz.gs` bunu tahmin etmiyor:
+> boş bir hücreye `=SUM(1,2)` yazıp sonucu okuyor, `3` dönerse virgül, dönmezse noktalı
+> virgül kullanıyor. Formüller kaynakta `§` ile yazılıp yazılmadan hemen önce doğru
+> ayırıcıya çevriliyor; metin içindeki gerçek virgüller (QUERY sorgusu gibi) korunuyor.
 
 > **Dikkat:** `Geri Bildirim` sayfasının adını değiştirirsen formüller kırılır. Değiştirmen
 > gerekirse `Code.gs` içindeki `SAYFA_ADI` sabitini de güncelle ve `analizSayfasiKur`'u
