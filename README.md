@@ -17,6 +17,7 @@ QR kod ile paylaşılmak üzere hazırlanmış, TR/EN çift dilli, tek dosyalık
 | `assets/logo_bl.png` · `assets/logo_wh.png` | Logonun açık ve koyu tema sürümlerinin yüksek çözünürlüklü kaynakları. Sayfa bunları kırpıp küçülterek base64 olarak gömer; dosyalar yeniden üretim için durur. |
 | `assets/favicon.pdf` | Favicon'un vektör kaynağı. Sayfaya gömülü 32px PNG ve `apple-touch-icon.png` bundan üretildi. |
 | `assets/apple-touch-icon.png` | iOS ana ekran simgesi (180×180). Sayfa buna dosya olarak bağlanır. |
+| `assets/qr-code.png` | Kapağın sağındaki QR (`https://tinyurl.com/cengorientation2026`). Yalnızca 1152px ve üstünde gösterilir; CSS arka planı olduğu için telefonda hiç indirilmez. |
 | `PRODUCT.md` | Tasarım brifi — hangi bilginin hangi yönetmelik maddesinden geldiği burada kayıtlı. |
 
 ## İçeriğin kaynakları

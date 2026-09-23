@@ -185,6 +185,9 @@ code,.mono{
   font-size:.88rem;color:var(--murekkep-soft);margin:0;
 }
 .kunye span{display:block}
+
+/* QR yalnızca geniş ekranda; aşağıdaki @media içinde açılıyor. */
+.qr{display:none}
 .kunye b{display:block;color:var(--murekkep);font-weight:640;font-size:1rem;margin-top:.1rem}
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -495,6 +498,32 @@ footer a:hover{color:var(--bordo)}
   footer .kolon{max-width:46rem;margin-inline:auto}
 }
 
+/* Projeksiyon genişliği: kapak üç sütuna açılıyor, QR sağda duruyor. */
+@media (min-width:72rem){
+  .kapak .kolon{grid-template-columns:15rem 1fr auto}
+  .qr{display:block;justify-self:end;text-align:center;width:14rem}
+  .qr-bilgi{
+    margin:0 0 .65rem;max-width:none;
+    font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--murekkep-soft);
+  }
+  .qr-kod{
+    width:11rem;height:11rem;margin:0 auto;padding:.5rem;border-radius:3px;
+    background-color:#fff;
+    background-image:url("assets/qr-code.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:contain;
+    background-origin:content-box;
+  }
+  .qr-adres{
+    margin:.7rem 0 0;max-width:none;
+    font-size:.74rem;line-height:1.4;overflow-wrap:anywhere;
+  }
+  .qr-adres a{color:var(--murekkep-soft);text-decoration-color:var(--cizgi-koyu)}
+  .qr-adres a:hover{color:var(--bordo)}
+}
+
 @media print{
   .cubuk,.dizin,.atla,form{display:none!important}
   body{font-size:10.5pt;background:#fff;color:#000}
@@ -533,6 +562,17 @@ footer a:hover{color:var(--bordo)}
         <span><span class="tr">Dönem</span><span class="en">Semester</span>
           <b class="rakam"><span class="tr">2026-2027 Güz</span><span class="en">2026-2027 Fall</span></b></span>
       </p>
+    </div>
+
+    <!-- Projeksiyonda açıkken öğrenciler telefonlarına alabilsin diye.
+         Yalnızca geniş ekranda görünür; görsel CSS arka planı olduğu için
+         telefonda hiç indirilmez. -->
+    <div class="qr">
+      <p class="qr-bilgi">
+        <span class="tr">Telefonunla okut</span><span class="en">Scan with your phone</span>
+      </p>
+      <div class="qr-kod" role="img" aria-label="tinyurl.com/cengorientation2026"></div>
+      <p class="qr-adres"><a href="https://tinyurl.com/cengorientation2026">https://tinyurl.com/cengorientation2026</a></p>
     </div>
   </div>
 </header>
