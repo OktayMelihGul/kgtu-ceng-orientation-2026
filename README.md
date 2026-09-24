@@ -34,6 +34,8 @@ Sayfadaki her akademik kural bir kaynağa dayanır; hiçbiri varsayım değildir
   öğrencinin statüsü ve masraflar.
 - **Bölümün akreditasyon sayfası ve üniversitenin Kalite Birim Koordinatörlüğü sayfası** —
   MÜDEK süreci ve öğrencilerin doldurduğu anketler.
+- **KGTÜ Çift Anadal Programı Yönergesi (YNRG.03)** ve **Yan Dal Programı Yönergesi (YNRG.04)** —
+  başvuru pencereleri, ortalama eşikleri, ders yükü, devam ve mezuniyet koşulları.
 
 > **Erasmus sayısal değerleri yönergeden alındı.** Bölümün web sayfasındaki Erasmus başlığı
 > asgari ortalamayı "lisans için minimum 20" diye yazıyor; bu bir yazım hatası ve yönergedeki
