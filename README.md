@@ -37,6 +37,12 @@ Sayfadaki her akademik kural bir kaynağa dayanır; hiçbiri varsayım değildir
 - **KGTÜ Çift Anadal Programı Yönergesi (YNRG.03)** ve **Yan Dal Programı Yönergesi (YNRG.04)** —
   başvuru pencereleri, ortalama eşikleri, ders yükü, devam ve mezuniyet koşulları.
 
+> **Yönergeden bilerek sapılan tek nokta.** Çift Anadal Yönergesi'nin 11/4 maddesi "Genel Not
+> Ortalaması **ikinci kez 2.75'in altına** düşen öğrencilerin kaydı silinir" diyor. Sayfada
+> "**ikinci kez 3,00'ın altına**" yazıyor. Gerekçe: 11/3'teki bir defalık hak zaten *3,00'ın
+> altına* düşmeye tanınıyor, dolayısıyla 11/4 kendi içinde tutarsız. Düzeltme bölümün talebiyle
+> yapıldı; yönerge revize edilirse bu not kaldırılmalı.
+
 > **Erasmus sayısal değerleri yönergeden alındı.** Bölümün web sayfasındaki Erasmus başlığı
 > asgari ortalamayı "lisans için minimum 20" diye yazıyor; bu bir yazım hatası ve yönergedeki
 > **2.50/4.00** ile çelişiyor. Sayfaya yönergedeki değer yazıldı. (Aynı sayfanın giriş
