@@ -30,6 +30,15 @@ Sayfadaki her akademik kural bir kaynağa dayanır; hiçbiri varsayım değildir
 - **2026-2027 Lisans-Önlisans Genel Akademik Takvimi** — tüm tarihler.
 - **Bilgisayar Mühendisliği müfredat planı** — ders tabloları, AKTS dağılımı.
 - **Bölüm akademik personel sayfası** — kadro listesi.
+- **KGTÜ Erasmus Yönergesi** — başvuru şartları, değerlendirme ölçütleri, ders tanınması,
+  öğrencinin statüsü ve masraflar.
+- **Bölümün akreditasyon sayfası ve üniversitenin Kalite Birim Koordinatörlüğü sayfası** —
+  MÜDEK süreci ve öğrencilerin doldurduğu anketler.
+
+> **Erasmus sayısal değerleri yönergeden alındı.** Bölümün web sayfasındaki Erasmus başlığı
+> asgari ortalamayı "lisans için minimum 20" diye yazıyor; bu bir yazım hatası ve yönergedeki
+> **2.50/4.00** ile çelişiyor. Sayfaya yönergedeki değer yazıldı. (Aynı sayfanın giriş
+> paragrafı da sehven "Moleküler Biyoloji ve Genetik Bölümü" diyor — bölüme bildirilmeli.)
 
 Bir bilgiyi değiştirirken kaynağını da güncelle. `PRODUCT.md` hangi satırın nereden geldiğini gösterir.
 
